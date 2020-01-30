@@ -64,7 +64,6 @@ class UrunController extends Controller
 
     public function newOrEditProduct($product_id = 0)
     {
-        $productSupportedCarList = [];
         $categories = $this->categoryService->all();
         $product = new Urun();
         $markalar = AracMarka::with('modeller')->whereActive(1)->get();
@@ -74,13 +73,6 @@ class UrunController extends Controller
         if ($product_id != 0) {
             $product = $this->model->getById($product_id, null, ['categories', 'variants.urunVariantSubAttributes', 'info']);
             $selected_categories = $product->categories()->pluck('category_id')->all();
-            foreach ($product->info->supported_cars as $i => $car) {
-                $productSupportedCarList[$i][0] = AracModel::where('parent_marka', $car['parent_marka'])->get();
-                $productSupportedCarList[$i][1] = AracKasa::where('parent_model', $car['parent_model'])->get();
-                $productSupportedCarList[$i][2] = AracModelYili::where('parent_kasa', $car['parent_kasa'])->get();
-                $productSupportedCarList[$i][3] = AracMotorHacmi::where('parent_model_yili', $car['parent_model_yili'])->get();
-                $productSupportedCarList[$i][4] = AracBeygirGucu::where('parent_motor_hacmi', $car['parent_motor_hacmi'])->get();
-            }
         }
         $attributes = $this->model->getAllAttributes();
         $subAttributes = $this->model->getAllSubAttributes();
@@ -96,23 +88,16 @@ class UrunController extends Controller
                 $productSelectedSubAttributesIdsPerAttribute[$index] = $selectedAttributeIdList;
             }
         }
-
-        $vehicles = [
-            'markalar' => $markalar,
-            'productSupportedModelList' => $productSupportedCarList
-        ];
         return view('admin.product.new_edit_product',
-            compact('product', 'vehicles', 'categories', 'brands', 'selected_categories', 'attributes', 'productDetails', 'subAttributes', 'productSelectedSubAttributesIdsPerAttribute', 'productVariants', 'companies'));
+            compact('product', 'categories', 'brands', 'selected_categories', 'attributes', 'productDetails', 'subAttributes', 'productSelectedSubAttributesIdsPerAttribute', 'productVariants', 'companies'));
     }
 
     public function saveProduct(AdminProductSaveRequest $request, $product_id = 0)
     {
         $posted_categories = request('categories');
-        $request_data = request()->only('title', 'slug', 'price', 'desc', 'qty', 'discount_price', 'brand', 'company', 'buying_price', 'spot', 'properties', 'oems', 'supported_cars');
+        $request_data = request()->only('title', 'slug', 'price', 'desc', 'qty', 'discount_price', 'brand', 'company', 'buying_price', 'spot', 'properties','code');
         if (!isset($request_data['properties']))
             $request_data['properties'] = [];
-        if (!isset($request_data['oems']))
-            $request_data['oems'] = [];
         $request_data['active'] = request()->has('active') ? 1 : 0;
         $request_data['slug'] = str_slug(request('title'));
         if ($this->model->all([['slug', $request_data['slug']], ['id', '!=', $product_id]], ['id'])->count() > 0) {
@@ -131,40 +116,42 @@ class UrunController extends Controller
         } else {
             $entry = $this->model->createWithCategory($request_data, $posted_categories, $productSelectedAttributesIdAnSubAttributeIdList);
         }
-//        dd($entry);
-        $productDetailTotalCount = $entry->detail()->count();
-        $variantIndex = 0;
-        do {
-            if (request()->has("variantIndexHidden$variantIndex")) {
-                $variantId = (int)request()->get("variantIndexHidden$variantIndex");
-                $variantQty = (int)request()->get("variantQty$variantIndex");
-                $variantPrice = request()->get("variantPrice$variantIndex");
-                $selectedVariantAttributeIdList = [];
-                for ($a = 0; $a < $productDetailTotalCount; $a++) {
-                    if (request()->has("variantAttributeHidden$variantIndex-$a")) {
-                        if (is_numeric(request()->get("variantAttributeSelect$variantIndex-$a")))
-                            array_push($selectedVariantAttributeIdList, request()->get("variantAttributeSelect$variantIndex-$a"));
+        if ($entry){
+            $productDetailTotalCount = $entry->detail()->count();
+            $variantIndex = 0;
+            do {
+                if (request()->has("variantIndexHidden$variantIndex")) {
+                    $variantId = (int)request()->get("variantIndexHidden$variantIndex");
+                    $variantQty = (int)request()->get("variantQty$variantIndex");
+                    $variantPrice = request()->get("variantPrice$variantIndex");
+                    $selectedVariantAttributeIdList = [];
+                    for ($a = 0; $a < $productDetailTotalCount; $a++) {
+                        if (request()->has("variantAttributeHidden$variantIndex-$a")) {
+                            if (is_numeric(request()->get("variantAttributeSelect$variantIndex-$a")))
+                                array_push($selectedVariantAttributeIdList, request()->get("variantAttributeSelect$variantIndex-$a"));
+                        }
                     }
+                    if (count($selectedVariantAttributeIdList) == 0)
+                        break;
+                    $this->model->saveProductVariants($product_id, $selectedVariantAttributeIdList, $variantPrice, $variantQty, $variantId);
                 }
-                if (count($selectedVariantAttributeIdList) == 0)
-                    break;
-                $this->model->saveProductVariants($product_id, $selectedVariantAttributeIdList, $variantPrice, $variantQty, $variantId);
+                $variantIndex++;
+            } while ($variantIndex < 10);
+            if (request()->hasFile('image')) {
+                $this->validate(request(), [
+                    'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                ]);
+                $this->model->uploadProductMainImage($entry, request()->file('image'));
             }
-            $variantIndex++;
-        } while ($variantIndex < 10);
-        if (request()->hasFile('image')) {
-            $this->validate(request(), [
-                'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
-            ]);
-            $this->model->uploadProductMainImage($entry, request()->file('image'));
+            if (request()->hasFile('imageGallery')) {
+                $this->validate(request(), [
+                    'imageGallery.*' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                ]);
+                $this->model->addProductImageGallery($entry->id, request()->file('imageGallery'), $entry);
+            }
+            return redirect(route('admin.product.edit', $entry->id));
         }
-        if (request()->hasFile('imageGallery')) {
-            $this->validate(request(), [
-                'imageGallery.*' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
-            ]);
-            $this->model->addProductImageGallery($entry->id, request()->file('imageGallery'), $entry);
-        }
-        return redirect(route('admin.product.edit', $entry->id));
+        return back();
     }
 
     public function deleteProduct($product_id)

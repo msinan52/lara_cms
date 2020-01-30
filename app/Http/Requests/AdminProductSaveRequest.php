@@ -23,11 +23,16 @@ class AdminProductSaveRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rule = [
             'title' => 'required|max:90',
             'desc' => 'required',
-            'price' => 'required|numeric|min:1,max:9999'
+            'price' => 'required|numeric|min:1,max:9999',
+            'code' => 'max:50'
         ];
+        if (config('admin.product_qty')) {
+            $rule['qty'] = 'required|numeric|min:1';
+        }
+        return $rule;
     }
 
     public function messages()

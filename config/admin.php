@@ -26,6 +26,13 @@ $data = [
     'coupon_module' => true,
     'show_logs' => true,
     'use_album_gallery' => true,
+    // some product features
+    'product_feature' => true,
+    'product_variant' => true,
+    'product_attribute' => true, // product detail
+    'product_gallery' => true,
+    'product_auto_code' => false,
+    'product_qty' => true,
 
 
     // index page configs

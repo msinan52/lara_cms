@@ -120,11 +120,11 @@ class ElUrunlerDal implements UrunlerInterface
     {
         try {
             $entry = $this->getById($id, null, 'info');
-            $infoData = ['brand_id' => $data['brand'], 'product_id' => $id, 'company_id' => $data['company'], 'buying_price' => $data['buying_price'], 'spot' => $data['spot'], 'properties' => $data['properties'], 'oems' => $data['oems'], 'supported_cars' => $data['supported_cars']];
-            if (@is_null($entry->info->code))
+            $infoData = ['brand_id' => $data['brand'], 'product_id' => $id, 'company_id' => $data['company'], 'buying_price' => $data['buying_price'], 'spot' => $data['spot'], 'properties' => $data['properties'], 'code' => $data['code']];
+            if (@is_null($entry->info->code) && config('admin.product_auto_code'))
                 $infoData['code'] = intval(($entry->id . rand(1000, 999999)));
             $entry->info->updateOrCreate(['product_id' => $id], $infoData);
-            unset($data['brand'], $data['company'], $data['buying_price'], $data['spot'], $data['properties'], $data['oems'], $data['supported_cars']);
+            unset($data['brand'], $data['company'], $data['buying_price'], $data['spot'], $data['properties'], $data['code']);
             $this->update($data, $id);
             $entry->categories()->sync($categories);
             if ($selected_attributes_and_sub_attributes != null) {
@@ -152,7 +152,7 @@ class ElUrunlerDal implements UrunlerInterface
             $spotText = $data['spot'];
             unset($data['brand'], $data['company'], $data['buying_price'], $data['spot']);
             $entry = $this->create($data);
-            $code = intval(($entry->id . rand(1000, 999999)));
+            $code = config('admin.product_auto_code') ? intval(($entry->id . rand(1000, 999999))) : null;
             $entry->info->create(['brand_id' => $brandId, 'product_id' => $entry->id, 'company_id' => $companyId, 'buying_price' => $buyingPrice, 'spot' => $spotText, 'code' => $code]);
             $entry->categories()->attach($categories);
             if ($selected_attributes_and_sub_attributes != null) {

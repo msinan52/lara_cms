@@ -20,7 +20,7 @@ class CreateUrunlerInfoTable extends Migration
             $table->unsignedInteger('company_id')->nullable();
             $table->decimal('buying_price', 8, 2)->nullable();
             $table->string('spot', 255)->nullable();
-            $table->unsignedInteger('code');
+            $table->string('code', 50)->nullable();
             $table->json('properties')->nullable();
             $table->json('oems')->nullable();
             $table->json('supported_cars')->nullable();
