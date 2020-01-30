@@ -50,6 +50,7 @@ $data['menus'] = [
     0 => [
         'title' => 'Modüller',
         'users' => ['fa fa-user', 'Kullanicilar', 'admin.users', $data['users_module']],
+        'roles' => ['fa fa-users', 'Rol Yönetimi', 'admin.roles', $data['users_module']],
         'banner' => ['fa fa-image', 'Banner', 'admin.banners', $data['banner_module']],
         'category' => ['fa fa-files-o', 'Kategoriler', 'admin.categories', $data['product_category_module']],
         'products' => ['fa fa-list', 'Ürünler', 'admin.products', $data['product_module'],

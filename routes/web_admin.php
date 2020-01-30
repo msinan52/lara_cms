@@ -173,6 +173,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('save/{id}', 'IcerikYonetimController@save')->name('admin.content.save');
             Route::get('delete/{id}', 'IcerikYonetimController@delete')->name('admin.content.delete');
         });
+        //----- Admin/Roles/..
+        Route::group(['prefix' => 'roles/'], function () {
+            Route::get('/', 'RoleController@list')->name('admin.roles');
+            Route::get('new', 'RoleController@newOrEditForm')->name('admin.role.new');
+            Route::get('edit/{id}', 'RoleController@newOrEditForm')->name('admin.role.edit');
+            Route::post('save/{id}', 'RoleController@save')->name('admin.role.save');
+            Route::get('delete/{id}', 'RoleController@delete')->name('admin.role.delete');
+        });
     });
 
 

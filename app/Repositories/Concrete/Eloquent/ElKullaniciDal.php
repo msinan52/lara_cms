@@ -1,6 +1,7 @@
 <?php namespace App\Repositories\Concrete\Eloquent;
 
 use App\Kullanici;
+use App\Models\Auth\Role;
 use App\Models\Log;
 use App\Repositories\Concrete\ElBaseRepository;
 use App\Repositories\Interfaces\KullaniciInterface;
@@ -56,4 +57,42 @@ class ElKullaniciDal implements KullaniciInterface
         return $this->model->with($relations, $filter, $paginate, $perPageItem);
     }
 
+    public function getAllRolesWithPagination()
+    {
+        return Role::orderByDesc('id')->simplePaginate();
+    }
+
+    public function getRoleById($id)
+    {
+        return Role::find($id);
+    }
+
+    public function createRole($data)
+    {
+        try {
+            $record = Role::create($data);
+            session()->flash('message', config('constants.messages.success_message'));
+            return $record;
+        } catch (\Exception $exception) {
+            session()->flash('message_type', 'danger');
+            session()->flash('message', $exception->getMessage());
+            Log::addLog('error', ($this->getModelTableName() . '' . 'eklerken bir sorun oluştu'), $exception->getMessage(), 1);
+        }
+    }
+
+    public function updateRole($id, $data)
+    {
+        try {
+            $role = $this->getRoleById($id);
+            if ($role) {
+                $record = $role->update($data);
+                session()->flash('message', config('constants.messages.success_message'));
+                return $role;
+            }
+        } catch (\Exception $exception) {
+            session()->flash('message_type', 'danger');
+            session()->flash('message', $exception->getMessage());
+            Log::addLog('error', 'rol güncellerken bir sorun oluştu', $exception->getMessage(), 1);
+        }
+    }
 }

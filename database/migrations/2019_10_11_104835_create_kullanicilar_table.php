@@ -25,7 +25,7 @@ class CreateKullanicilarTable extends Migration
             $table->boolean('is_active')->default(0);
             $table->boolean('is_admin')->default(0);
             $table->string('token', 200)->nullable();
-            $table->unsignedInteger('role_id')->index()->default($role->id);
+            $table->unsignedInteger('role_id')->index()->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
