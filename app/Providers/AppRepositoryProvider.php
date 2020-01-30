@@ -9,6 +9,7 @@ use App\Repositories\Concrete\Eloquent\ElBannerDal;
 use App\Repositories\Concrete\Eloquent\ElCityTownDal;
 use App\Repositories\Concrete\Eloquent\ElFavorilerDal;
 use App\Repositories\Concrete\Eloquent\ElFotoGalleryDal;
+use App\Repositories\Concrete\Eloquent\ElIcerikYonetimDal;
 use App\Repositories\Concrete\Eloquent\ElKampanyaDal;
 use App\Repositories\Concrete\Eloquent\ElKategoriDal;
 use App\Repositories\Concrete\Eloquent\ElKullaniciDal;
@@ -31,6 +32,7 @@ use App\Repositories\Interfaces\BannerInterface;
 use App\Repositories\Interfaces\CityTownInterface;
 use App\Repositories\Interfaces\FavorilerInterface;
 use App\Repositories\Interfaces\FotoGalleryInterface;
+use App\Repositories\Interfaces\IcerikYonetimInterface;
 use App\Repositories\Interfaces\KampanyaInterface;
 use App\Repositories\Interfaces\KategoriInterface;
 use App\Repositories\Interfaces\KullaniciInterface;
@@ -89,5 +91,6 @@ class AppRepositoryProvider extends ServiceProvider
         $this->app->bind(AracMarkaInterface::class, ElAracMarkaDal::class);
         $this->app->bind(ReferenceInterface::class, ElReferenceDal::class);
         $this->app->bind(FotoGalleryInterface::class, ElFotoGalleryDal::class);
+        $this->app->bind(IcerikYonetimInterface::class, ElIcerikYonetimDal::class);
     }
 }

@@ -1,16 +1,17 @@
 <?php namespace App\Repositories\Concrete\Eloquent;
 
-use App\Models\Referance;
+use App\Models\Content;
+use App\Models\SSS;
 use App\Repositories\Concrete\ElBaseRepository;
-use App\Repositories\Interfaces\ReferenceInterface;
-use Intervention\Image\ImageManagerStatic as Image;
+use App\Repositories\Interfaces\IcerikYonetimInterface;
+use Intervention\Image\Facades\Image;
 
-class ElReferenceDal implements ReferenceInterface
+class ElIcerikYonetimDal implements IcerikYonetimInterface
 {
 
     protected $model;
 
-    public function __construct(Referance $model)
+    public function __construct(Content $model)
     {
         $this->model = app()->makeWith(ElBaseRepository::class, ['model' => $model]);
     }
@@ -47,6 +48,13 @@ class ElReferenceDal implements ReferenceInterface
 
     public function delete($id)
     {
+        $item = $this->getById($id);
+        if ($item->image) {
+            $image_path = getcwd() . config('constants.image_paths.content_image_folder_path') . $item->image;
+            if (file_exists($image_path)) {
+                \File::delete($image_path);
+            }
+        }
         return $this->model->delete($id);
     }
 
@@ -55,16 +63,15 @@ class ElReferenceDal implements ReferenceInterface
         return $this->model->with($relations, $filter, $paginate, $perPageItem);
     }
 
-
-    public function uploadMainImage($reference, $image_file)
+    public function uploadMainImage($content, $image_file)
     {
         try {
             if ($image_file->isValid()) {
-                $file_name = $reference->id . '-' . str_slug($reference->title) . '.jpg';
+                $file_name = $content->id . '-' . str_slug($content->title) . '.jpg';
                 $image_resize = Image::make($image_file->getRealPath());
                 $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
-                $image_resize->save(public_path(config('constants.image_paths.reference_image_folder_path') . $file_name), 50);
-                $reference->update(['image' => $file_name]);
+                $image_resize->save(public_path(config('constants.image_paths.content_image_folder_path') . $file_name), 50);
+                $content->update(['image' => $file_name]);
             } else {
                 session()->flash('message', $image_file->getErrorMessage());
                 session()->flash('message_type', 'danger');
@@ -76,5 +83,6 @@ class ElReferenceDal implements ReferenceInterface
         }
 
     }
+
 
 }

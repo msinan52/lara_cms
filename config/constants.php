@@ -15,6 +15,8 @@ return [
         'campaign_image_folder_path' => $project_images_path . '/kampanyalar/',
         'brand_image_folder_path' => $project_images_path . '/markalar/',
         'company_image_folder_path' => $project_images_path . '/firmalar/',
+        'content_image_upload_path' => $project_images_path . '/icerikyonetim/',
+        'content_image_folder_path' => '/' . $project_images_path . '/icerikyonetim/',
     ],
     'messages' => [
         'success_message' => 'İşlem başarılı şekilde gerçekleşti',

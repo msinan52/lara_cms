@@ -165,6 +165,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::get('delete/{id}', 'FotoGalleryController@delete')->name('admin.gallery.delete');
             Route::get('deleteGalleryImage/{id}', 'FotoGalleryController@deleteGalleryImage')->name('admin.gallery.image.delete');
         });
+        //----- Admin/Content/..
+        Route::group(['prefix' => 'content/'], function () {
+            Route::get('/', 'IcerikYonetimController@list')->name('admin.content');
+            Route::get('new', 'IcerikYonetimController@newOrEditForm')->name('admin.content.new');
+            Route::get('edit/{id}', 'IcerikYonetimController@newOrEditForm')->name('admin.content.edit');
+            Route::post('save/{id}', 'IcerikYonetimController@save')->name('admin.content.save');
+            Route::get('delete/{id}', 'IcerikYonetimController@delete')->name('admin.content.delete');
+        });
     });
 
 
