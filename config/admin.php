@@ -32,6 +32,9 @@ $data = [
     'home_page_show_products' => true,
     'home_page_show_orders' => true,
     'home_page_show_order_widgets' => true,
+    // admin account
+    'username' => 'm4urat@gmail.com',
+    'password' => '141277kk'
 
 
 ];

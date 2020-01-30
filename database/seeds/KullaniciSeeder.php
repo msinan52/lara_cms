@@ -18,8 +18,8 @@ class KullaniciSeeder extends Seeder
         Kullanici::create([
             'name' => "Murat",
             'surname' => "Karabacak",
-            'email' => "m4urat@gmail.com",
-            'password' => '$2y$10$BTORQidLo2f/IjxHYhvGweE83QQ/C3.bOAx.cbj.wtLZGHVgrp4d6',
+            'email' => config('admin.username'),
+            'password' => Hash::make(config('admin.password')),
             'is_active' => 1,
             'is_admin' => 1,
         ]);

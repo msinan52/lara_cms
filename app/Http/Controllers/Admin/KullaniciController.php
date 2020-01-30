@@ -43,13 +43,15 @@ class KullaniciController extends Controller
         $perPageItem = 10;
         $query = request('q');
         if ($query) {
-            $list = Kullanici::where('name', 'like', "%$query%")
-                ->orWhere('email', 'like', "%$query%")
-                ->orWhere('surname', 'like', "%$query%")
+            $list = Kullanici::where(function ($qq) use ($query) {
+                $qq->where('name', 'like', "%$query%")
+                    ->orWhere('email', 'like', "%$query%")
+                    ->orWhere('surname', 'like', "%$query%");
+            })->where('email', '!=', config('admin.username'))
                 ->orderByDesc('id')
                 ->paginate($perPageItem);
         } else {
-            $list = Kullanici::orderByDesc('id')->paginate($perPageItem);
+            $list = Kullanici::where('email', '!=', config('admin.username'))->orderByDesc('id')->paginate($perPageItem);
         }
 
         return view('admin.user.list_users', compact('list'));
@@ -60,6 +62,8 @@ class KullaniciController extends Controller
         $user = new Kullanici();
         if ($user_id > 0) {
             $user = Kullanici::whereId($user_id)->firstOrFail();
+            if ($user->email == config('admin.username'))
+                return back()->withErrors('yetkiniz yok');
         }
         return view('admin.user.new_edit_user', compact('user'));
     }
@@ -98,6 +102,8 @@ class KullaniciController extends Controller
     public function deleteUser($user_id)
     {
         $user = Kullanici::where('id', $user_id)->firstOrFail();
+        if ($user->email == config('admin.username'))
+            return back()->withErrors('Bu kullanıcı silinemez');
         $user->delete();
         session()->flash('message', ' isimli kullanıcı başarıyla silindi');
         return redirect(route('admin.users'));
