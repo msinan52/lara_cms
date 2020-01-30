@@ -42,16 +42,21 @@ class KullaniciController extends Controller
     {
         $perPageItem = 10;
         $query = request('q');
+        $auth = Auth::guard('admin')->user();
         if ($query) {
             $list = Kullanici::where(function ($qq) use ($query) {
                 $qq->where('name', 'like', "%$query%")
                     ->orWhere('email', 'like', "%$query%")
                     ->orWhere('surname', 'like', "%$query%");
-            })->where('email', '!=', config('admin.username'))
-                ->orderByDesc('id')
+            })->when($auth->email != config('admin.username'), function ($qq) {
+                $qq->where('email', '!=', config('admin.username'));
+            })->orderByDesc('id')
                 ->paginate($perPageItem);
+
         } else {
-            $list = Kullanici::where('email', '!=', config('admin.username'))->orderByDesc('id')->paginate($perPageItem);
+            $list = Kullanici::when($auth->email != config('admin.username'), function ($qq) {
+                $qq->where('email', '!=', config('admin.username'));
+            })->orderByDesc('id')->paginate($perPageItem);
         }
 
         return view('admin.user.list_users', compact('list'));
@@ -60,9 +65,10 @@ class KullaniciController extends Controller
     public function newOrEditUser($user_id = 0)
     {
         $user = new Kullanici();
+        $auth = Auth::guard('admin')->user();
         if ($user_id > 0) {
             $user = Kullanici::whereId($user_id)->firstOrFail();
-            if ($user->email == config('admin.username'))
+            if ($user->email == config('admin.username') && $auth->email != config('admin.username'))
                 return back()->withErrors('yetkiniz yok');
         }
         return view('admin.user.new_edit_user', compact('user'));

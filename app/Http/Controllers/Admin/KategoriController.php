@@ -47,9 +47,11 @@ class KategoriController extends Controller
     {
         $request_data = \request()->only('title', 'parent_category', 'icon', 'spot', 'row');
         $request_data['active'] = request()->has('active') ? 1 : 0;
-        $request_data['slug'] = str_slug(\request('title'));
-        if ($this->model->all([['slug', $request_data['slug']], ['id', '!=', $category_id]])->count() > 0) {
-            return back()->withInput()->withErrors('slug alanı zaten kayıtlı');
+        $request_data['slug'] = str_slug(request('title'));
+        $i = 0;
+        while ($this->model->all([['slug', $request_data['slug']], ['id', '!=', $category_id]], ['id'])->count() > 0) {
+            $request_data['slug'] = str_slug(request('title')) . '-' . $i;
+            $i++;
         }
         if ($category_id != 0) {
             $entry = $this->model->update($request_data, $category_id);

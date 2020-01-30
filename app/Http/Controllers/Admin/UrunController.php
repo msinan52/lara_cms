@@ -95,13 +95,15 @@ class UrunController extends Controller
     public function saveProduct(AdminProductSaveRequest $request, $product_id = 0)
     {
         $posted_categories = request('categories');
-        $request_data = request()->only('title', 'slug', 'price', 'desc', 'qty', 'discount_price', 'brand', 'company', 'buying_price', 'spot', 'properties','code');
+        $request_data = request()->only('title', 'slug', 'price', 'desc', 'qty', 'discount_price', 'brand', 'company', 'buying_price', 'spot', 'properties', 'code');
         if (!isset($request_data['properties']))
             $request_data['properties'] = [];
         $request_data['active'] = request()->has('active') ? 1 : 0;
+        $i = 0;
         $request_data['slug'] = str_slug(request('title'));
-        if ($this->model->all([['slug', $request_data['slug']], ['id', '!=', $product_id]], ['id'])->count() > 0) {
-            return back()->withInput()->withErrors('slug alanı zaten kayıtlı');
+        while ($this->model->all([['slug', $request_data['slug']], ['id', '!=', $product_id]], ['id'])->count() > 0) {
+            $request_data['slug'] = str_slug(request('title')) . '-' . $i;
+            $i++;
         }
         $productSelectedAttributesIdAnSubAttributeIdList = array();
         $index = 0;
@@ -116,7 +118,7 @@ class UrunController extends Controller
         } else {
             $entry = $this->model->createWithCategory($request_data, $posted_categories, $productSelectedAttributesIdAnSubAttributeIdList);
         }
-        if ($entry){
+        if ($entry) {
             $productDetailTotalCount = $entry->detail()->count();
             $variantIndex = 0;
             do {

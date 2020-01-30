@@ -153,7 +153,7 @@ function addNewProductVariantItem($productId) {
                 '                                                    <td><label for="">Fiyat</label></td>\n' +
                 '                                                    <td>\n' +
                 '                                                        <input type="number" class="form-control" value="" name="variantPrice' + $productVariantTotalCount + '" required>\n' +
-                '                                                        <p class="help-block">Ürünün kendi fiyatı üzerine eklenicek/çıkarılacak fiyat</p>\n' +
+                '                                                        <p class="help-block">Ürünün seçilen özelliklere ait fiyatı</p>\n' +
                 '                                                    </td>\n' +
                 '                                                </div>\n' +
                 '                                                <div class="col-md-1">\n' +

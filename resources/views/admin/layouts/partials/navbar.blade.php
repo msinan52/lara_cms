@@ -68,9 +68,6 @@
                                 <div class="col-xs-4 text-center">
                                     <a href="{{ route('admin.clearCache') }}">Önbellek Temizle</a>
                                 </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
                             </div>
                             <!-- /.row -->
                         </li>
