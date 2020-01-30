@@ -110,9 +110,9 @@
             @foreach(config('admin.menus') as $index=>$menu)
                 <li class="header">{{ $menu['title'] }}</li>
                 @foreach($menu as $subI=>$item)
-                    @if($subI != 'title')
+                    @if($subI != 'title' && $item[3])
                         <li class="{{ isset($item[4]) ? 'treeview':'' }}">
-                            <a href="{{ route('admin.users') }}">
+                            <a href="{{route($item[2]) }}">
                                 <i class="{{ $item[0] }}"></i>
                                 <span>{{ $item[1] }}</span>
                                 <span class="pull-right-container">

@@ -12,7 +12,9 @@ class Ayar extends Model
 
     public static function setCache($ayarModel)
     {
-        return \Cache::forever('siteConfig', $ayarModel);
+        return \Cache::rememberForever('siteConfig', function () use ($ayarModel){
+            return $ayarModel;
+        });
     }
 
     public static function getCache()

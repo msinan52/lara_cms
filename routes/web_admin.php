@@ -147,6 +147,24 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('save/{id}', 'SSSController@save')->name('admin.sss.save');
             Route::get('delete/{id}', 'SSSController@delete')->name('admin.sss.delete');
         });
+
+        //----- Admin/References/..
+        Route::group(['prefix' => 'references/'], function () {
+            Route::get('/', 'ReferansController@list')->name('admin.reference');
+            Route::get('new', 'ReferansController@newOrEditForm')->name('admin.reference.new');
+            Route::get('edit/{id}', 'ReferansController@newOrEditForm')->name('admin.reference.edit');
+            Route::post('save/{id}', 'ReferansController@save')->name('admin.reference.save');
+            Route::get('delete/{id}', 'ReferansController@delete')->name('admin.reference.delete');
+        });
+        //----- Admin/PhotoGallery/..
+        Route::group(['prefix' => 'photo-gallery/'], function () {
+            Route::get('/', 'FotoGalleryController@list')->name('admin.gallery');
+            Route::get('new', 'FotoGalleryController@newOrEditForm')->name('admin.gallery.new');
+            Route::get('edit/{id}', 'FotoGalleryController@newOrEditForm')->name('admin.gallery.edit');
+            Route::post('save/{id}', 'FotoGalleryController@save')->name('admin.gallery.save');
+            Route::get('delete/{id}', 'FotoGalleryController@delete')->name('admin.gallery.delete');
+            Route::get('deleteGalleryImage/{id}', 'FotoGalleryController@deleteGalleryImage')->name('admin.gallery.image.delete');
+        });
     });
 
 

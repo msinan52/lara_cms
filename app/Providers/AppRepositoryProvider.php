@@ -8,12 +8,14 @@ use App\Repositories\Concrete\Eloquent\ElAyarlarDal;
 use App\Repositories\Concrete\Eloquent\ElBannerDal;
 use App\Repositories\Concrete\Eloquent\ElCityTownDal;
 use App\Repositories\Concrete\Eloquent\ElFavorilerDal;
+use App\Repositories\Concrete\Eloquent\ElFotoGalleryDal;
 use App\Repositories\Concrete\Eloquent\ElKampanyaDal;
 use App\Repositories\Concrete\Eloquent\ElKategoriDal;
 use App\Repositories\Concrete\Eloquent\ElKullaniciDal;
 use App\Repositories\Concrete\Eloquent\ElKuponDal;
 use App\Repositories\Concrete\Eloquent\ElLogDal;
 use App\Repositories\Concrete\Eloquent\ElOdemeDal;
+use App\Repositories\Concrete\Eloquent\ElReferenceDal;
 use App\Repositories\Concrete\Eloquent\ElSepetDal;
 use App\Repositories\Concrete\Eloquent\ElSiparisDal;
 use App\Repositories\Concrete\Eloquent\ElSSSDal;
@@ -28,12 +30,14 @@ use App\Repositories\Interfaces\AyarlarInterface;
 use App\Repositories\Interfaces\BannerInterface;
 use App\Repositories\Interfaces\CityTownInterface;
 use App\Repositories\Interfaces\FavorilerInterface;
+use App\Repositories\Interfaces\FotoGalleryInterface;
 use App\Repositories\Interfaces\KampanyaInterface;
 use App\Repositories\Interfaces\KategoriInterface;
 use App\Repositories\Interfaces\KullaniciInterface;
 use App\Repositories\Interfaces\KuponInterface;
 use App\Repositories\Interfaces\LogInterface;
 use App\Repositories\Interfaces\OdemeInterface;
+use App\Repositories\Interfaces\ReferenceInterface;
 use App\Repositories\Interfaces\SepetInterface;
 use App\Repositories\Interfaces\SiparisInterface;
 use App\Repositories\Interfaces\SSSInterface;
@@ -83,5 +87,7 @@ class AppRepositoryProvider extends ServiceProvider
         $this->app->bind(UrunFirmaInterface::class, ElUrunFirmaDal::class);
         $this->app->bind(SSSInterface::class, ElSSSDal::class);
         $this->app->bind(AracMarkaInterface::class, ElAracMarkaDal::class);
+        $this->app->bind(ReferenceInterface::class, ElReferenceDal::class);
+        $this->app->bind(FotoGalleryInterface::class, ElFotoGalleryDal::class);
     }
 }
