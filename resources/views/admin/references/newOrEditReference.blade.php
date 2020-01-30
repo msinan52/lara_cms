@@ -45,7 +45,7 @@
                                 <input type="file" class="form-control" name="image">
                                 @if($item->image)
                                     <span class="help-block"><a target="_blank"
-                                            href="/{{ config('constants.image_paths.reference_image_folder_path') }}{{ $item->image }}">{{ $item->image }}</a></span>
+                                            href="{{ config('constants.image_paths.reference_image_folder_path') }}{{ $item->image }}">{{ $item->image }}</a></span>
                                 @endif
                             </div>
                             <div class="form-group col-md-2">

@@ -47,6 +47,13 @@ class ElReferenceDal implements ReferenceInterface
 
     public function delete($id)
     {
+        $item = $this->getById($id);
+        if ($item->image) {
+            $image_path = getcwd() . config('constants.image_paths.reference_image_folder_path') . $item->image;
+            if (file_exists($image_path)) {
+                \File::delete($image_path);
+            }
+        }
         return $this->model->delete($id);
     }
 

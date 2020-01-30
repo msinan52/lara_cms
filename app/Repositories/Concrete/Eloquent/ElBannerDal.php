@@ -50,6 +50,13 @@ class ElBannerDal implements BannerInterface
 
     public function delete($id)
     {
+        $item = $this->getById($id);
+        if ($item->image) {
+            $image_path = getcwd() . config('constants.image_paths.banner_image_folder_path') . $item->image;
+            if (file_exists($image_path)) {
+                \File::delete($image_path);
+            }
+        }
         return $this->model->delete();
     }
 
