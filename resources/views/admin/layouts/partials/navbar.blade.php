@@ -17,11 +17,11 @@
             <ul class="nav navbar-nav">
                 <!-- Messages: style can be found in dropdown.less-->
                 @if(config('admin.product_comment_module'))
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="label label-success">{{ $unreadCommentsCount }}</span>
-                    </a>
+                    <li class="dropdown messages-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="label label-success">{{ $unreadCommentsCount }}</span>
+                        </a>
 
                         <ul class="dropdown-menu">
                             <li class="header">Okunmamış {{ $unreadCommentsCount }} yeni yorum var</li>
@@ -40,7 +40,7 @@
                             <li class="footer"><a href="{{ route('admin.product.comments.list') }}">Tümünü Göster</a></li>
                         </ul>
 
-                </li>
+                    </li>
                 @endif
 
                 <li class="dropdown user user-menu">
@@ -107,121 +107,33 @@
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            <li class="header">Modüller</li>
+            @foreach(config('admin.menus') as $index=>$menu)
+                <li class="header">{{ $menu['title'] }}</li>
+                @foreach($menu as $subI=>$item)
+                    @if($subI != 'title')
+                        <li class="{{ isset($item[4]) ? 'treeview':'' }}">
+                            <a href="{{ route('admin.users') }}">
+                                <i class="{{ $item[0] }}"></i>
+                                <span>{{ $item[1] }}</span>
+                                <span class="pull-right-container">
+                                 @if(isset($item[4]))
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    @endif
+                         </span>
+                            </a>
+                            @if(isset($item[4]))
+                                <ul class="treeview-menu">
+                                    <li><a href="{{ route('admin.products') }}"><i class="fa fa-circle-o"></i> Ürün Listesi</a></li>
 
-            <li>
-                <a href="{{ route('admin.users') }}">
-                    <i class="fa fa-user"></i>
-                    <span>Kullanıcılar</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.banners') }}">
-                    <i class="fa fa-image"></i>
-                    <span>Banner</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.categories') }}">
-                    <i class="fa fa-files-o"></i>
-                    <span>Kategoriler</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li class="treeview">
-                <a href="{{ route('admin.products') }}">
-                    <i class="fa fa-list"></i>
-                    <span>Ürünler</span>
-                    <span class="pull-right-container">
-                      <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ route('admin.products') }}"><i class="fa fa-circle-o"></i> Ürün Listesi</a></li>
-
-                    <li><a href="{{ route('admin.product.attribute.list') }}"><i class="fa fa-circle-o"></i> Ürün
-                            Özellikler</a></li>
-                    <li><a href="{{ route('admin.product.comments.list') }}"><i class="fa fa-circle-o"></i> Ürün Yorumları</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="{{ route('admin.orders') }}">
-                    <i class="fa fa-shopping-bag"></i>
-                    <span>Siparişler</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.orders.iyzico_logs') }}">
-                    <i class="fa fa-shopping-bag"></i> <i class="fa fa-exclamation"></i>
-                    <span>Hatalı Siparişler</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.coupons') }}">
-                    <i class="fa fa-tags"></i>
-                    <span>Kuponlar</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.campaigns') }}">
-                    <i class="fa fa-percent"></i>
-                    <span>Kampanyalar</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.logs') }}">
-                    <i class="fa fa-exclamation"></i>
-                    <span>Hata Yönetimi</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li class="header">Genel</li>
-            <li>
-                <a href="{{ route('admin.configs') }}">
-                    <i class="fa fa-key"></i>
-                    <span>Ayarlar</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.product.brands.list') }}">
-                    <i class="fa fa-medium"></i>
-                    <span>Ürün Markaları</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.product.company.list') }}">
-                    <i class="fa fa-building"></i>
-                    <span>Tedarikçi Firmalar</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
-            <li>
-                <a href="{{ route('admin.sss') }}">
-                    <i class="fa fa-info"></i>
-                    <span>Sık Sorulan Sorular</span>
-                    <span class="pull-right-container">
-            </span>
-                </a>
-            </li>
+                                    <li><a href="{{ route('admin.product.attribute.list') }}"><i class="fa fa-circle-o"></i> Ürün
+                                            Özellikler</a></li>
+                                    <li><a href="{{ route('admin.product.comments.list') }}"><i class="fa fa-circle-o"></i> Ürün Yorumları</a></li>
+                                </ul>
+                            @endif
+                        </li>
+                    @endif
+                @endforeach
+            @endforeach
         </ul>
     </section>
     <!-- /.sidebar -->
