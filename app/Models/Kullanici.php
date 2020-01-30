@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Auth\Role;
 use App\Models\KullaniciAdres;
 use App\Models\Log;
 use App\Notifications\PasswordReset;
@@ -18,6 +19,11 @@ class Kullanici extends Authenticatable
         'name', 'surname', 'email', 'password', 'activation_code', 'is_active', 'is_admin'
     ];
 
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
     protected $hidden = [
         'password', 'activation_code',
     ];
@@ -31,7 +37,6 @@ class Kullanici extends Authenticatable
     {
         return $this->hasOne('App\Models\KullaniciDetay', 'user_id', 'id')->withDefault();
     }
-
 
 
     public function sendPasswordResetNotification($token)

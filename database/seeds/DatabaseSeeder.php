@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(KategorilerTableSeeder::class);
         $this->call(UrunlerTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
         $this->call(KullaniciSeeder::class);
         $this->call(UrunAttributeTableSeeder::class);
         $this->call(AyarlarTableSeeder::class);
