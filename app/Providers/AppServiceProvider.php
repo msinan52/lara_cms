@@ -64,7 +64,6 @@ class AppServiceProvider extends ServiceProvider
     private function _getAdminMenus()
     {
         $menus = config('admin.menus');
-        unset($menus[0]['users']);
         $roleId = auth()->guard('admin')->user()->role_id;
         $role = Role::where('id', $roleId)->first();
         if ($role) {
