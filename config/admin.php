@@ -49,31 +49,147 @@ $data = [
 $data['menus'] = [
     0 => [
         'title' => 'Modüller',
-        'users' => ['fa fa-user', 'Kullanicilar', 'admin.users', $data['users_module']],
-        'roles' => ['fa fa-users', 'Rol Yönetimi', 'admin.roles', $data['users_module']],
-        'banner' => ['fa fa-image', 'Banner', 'admin.banners', $data['banner_module']],
-        'category' => ['fa fa-files-o', 'Kategoriler', 'admin.categories', $data['product_category_module']],
-        'products' => ['fa fa-list', 'Ürünler', 'admin.products', $data['product_module'],
-            [
-                ['fa fa-circle-o', 'Ürün Listesi', 'admin.products', $data['product_module']],
-                ['fa fa-circle-o', 'Ürün Özellikleri', 'admin.product.attribute.list', $data['product_attribute_module']],
-                ['fa fa-circle-o', 'Ürün Yorumları', 'admin.product.comment.list', $data['product_comment_module']],
+        'users' => [
+            'icon' => 'fa fa-user',
+            'permission' => 'Kullanici@listUsers',
+            'title' => 'Kullanicilar',
+            'routeName' => 'admin.users',
+            'active' => $data['users_module']
+        ],
+        'roles' => [
+            'icon' => 'fa fa-users',
+            'permission' => 'Role@list',
+            'title' => 'Rol Yönetimi',
+            'routeName' => 'admin.roles',
+            'active' => $data['users_module']
+        ],
+        'banner' => [
+            'icon' => 'fa fa-image',
+            'permission' => 'Banner@list',
+            'title' => 'Banner',
+            'routeName' => 'admin.banners',
+            'active' => $data['banner_module']
+        ],
+        'category' => [
+            'icon' => 'fa fa-files-o',
+            'permission' => 'Kategori@listCategories',
+            'title' => 'Kategoriler',
+            'routeName' => 'admin.categories',
+            'active' => $data['product_category_module']
+        ],
+        'products' => [
+            'icon' => 'fa fa-list',
+            'permission' => 'Urun@listProducts',
+            'title' => 'Ürünler',
+            'routeName' => 'admin.products',
+            'active' => $data['product_module'],
+            'subs' => [
+                ['icon' => 'fa fa-circle-o',
+                    'permission' => 'Urun@listProducts',
+                    'title' => 'Ürün Listesi',
+                    'routeName' => 'admin.products',
+                    'active' => $data['product_module']
+                ],
+                ['icon' => 'fa fa-circle-o',
+                    'permission' => 'UrunOzellik@list',
+                    'title' => 'Ürün Özellikleri',
+                    'routeName' => 'admin.product.attribute.list',
+                    'active' => $data['product_attribute_module']
+                ],
+                ['icon' => 'fa fa-circle-o',
+                    'permission' => 'UrunYorum@list',
+                    'title' => 'Ürün Yorumları',
+                    'routeName' => 'admin.product.comments.list',
+                    'active' => $data['product_comment_module']
+                ],
             ]
         ],
-        'orders' => ['fa fa-shopping-bag', 'Siparişler', 'admin.orders', $data['order_module']],
-        'references' => ['fa fa-list-alt', 'Referanslar', 'admin.reference', $data['reference_module']],
-        'content_management' => ['fa fa-align-center', 'İçerik Yönetim', 'admin.content', $data['content_management_module']],
-        'gallery' => ['fa fa-camera', 'Galeri', 'admin.gallery', $data['gallery_module']],
-        'error_orders' => ['fa fa-exclamation', 'Hatalı Siparişler', 'admin.orders.iyzico_logs', $data['order_module']],
-        'coupons' => ['fa fa-tags', 'Kuponlar', 'admin.coupons', $data['coupon_module']],
-        'campaign' => ['fa fa-percent', 'Kampanyalar', 'admin.campaigns', $data['campaign_module']],
-        'logs' => ['fa fa-exclamation', 'Hata Yönetimi', 'admin.logs', $data['show_logs']],
+        'orders' => [
+            'icon' => 'fa fa-shopping-bag',
+            'permission' => 'Siparis@list',
+            'title' => 'Siparişler',
+            'routeName' => 'admin.orders',
+            'active' => $data['order_module']
+        ],
+        'references' => [
+            'icon' => 'fa fa-list-alt',
+            'permission' => 'Referans@list',
+            'title' => 'Referanslar',
+            'routeName' => 'admin.reference',
+            'active' => $data['reference_module']
+        ],
+        'content_management' => [
+            'icon' => 'fa fa-align-center',
+            'permission' => 'IcerikYonetim@list',
+            'title' => 'İçerik Yönetim',
+            'routeName' => 'admin.content',
+            'active' => $data['content_management_module']
+        ],
+        'gallery' => [
+            'icon' => 'fa fa-camera',
+            'permission' => 'FotoGallery@list',
+            'title' => 'Galeri Yönetim',
+            'routeName' => 'admin.gallery',
+            'active' => $data['gallery_module']
+        ],
+        'error_orders' => [
+            'icon' => 'fa fa-exclamation',
+            'permission' => 'Siparis@iyzicoErrorOrderList',
+            'title' => 'Hatalı Siparişler',
+            'routeName' => 'admin.orders.iyzico_logs',
+            'active' => $data['order_module']
+        ],
+        'coupons' => [
+            'icon' => 'fa fa-tags',
+            'permission' => 'Kupon@list',
+            'title' => 'Kuponlar',
+            'routeName' => 'admin.coupons',
+            'active' => $data['coupon_module']
+        ],
+        'campaign' => [
+            'icon' => 'fa fa-percent',
+            'permission' => 'Kampanya@list',
+            'title' => 'Kampanyalar',
+            'routeName' => 'admin.campaigns',
+            'active' => $data['campaign_module']
+        ],
+        'logs' => [
+            'icon' => 'fa fa-exclamation',
+            'permission' => 'Log@list',
+            'title' => 'Hata Yönetimi',
+            'routeName' => 'admin.logs',
+            'active' => $data['show_logs']
+        ],
     ], 1 => [
         'title' => 'Genel',
-        'settings' => ['fa fa-key', 'Ayarlar', 'admin.configs', $data['settings_module']],
-        'product_brands' => ['fa fa-medium', 'Ürün Markaları', 'admin.product.brands.list', $data['product_brands_module']],
-        'product_companies' => ['fa fa-building', 'Ürün Firmaları', 'admin.product.company.list', $data['product_companies_module']],
-        'sss' => ['fa fa-info', 'Sık Sorulan Sorular', 'admin.sss', $data['sss_module']],
+        'settings' => [
+            'icon' => 'fa fa-key',
+            'permission' => 'Log@list',
+            'title' => 'Ayarlar',
+            'routeName' => 'admin.configs',
+            'active' => $data['settings_module']
+        ],
+        'product_brands' => [
+            'icon' => 'fa fa-medium',
+            'permission' => 'UrunMarka@list',
+            'title' => 'Ürün Markaları',
+            'routeName' => 'admin.product.brands.list',
+            'active' => $data['product_brands_module']
+        ],
+        'product_companies' => [
+            'icon' => 'fa fa-building',
+            'permission' => 'UrunFirma@list',
+            'title' => 'Ürün Firmaları',
+            'routeName' => 'admin.product.company.list',
+            'active' => $data['product_companies_module']
+        ],
+        'sss' => [
+            'icon' => 'fa fa-info',
+            'permission' => 'SSS@list',
+            'title' => 'Sık Sorulan Sorular',
+            'routeName' => 'admin.sss',
+            'active' => $data['sss_module']
+        ],
     ],
 
 ];

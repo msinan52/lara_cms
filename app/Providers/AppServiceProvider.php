@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Kullanici;
 use App\Listeners\LoggingListener;
+use App\Models\Auth\Role;
 use App\Models\Ayar;
 use App\Models\Kategori;
 use App\Models\Urun;
@@ -30,7 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
         View::composer(['site.*'], function ($view) {
             $site = Ayar::getCache();
             $cacheCategories = Kategori::getCache();
@@ -39,7 +39,9 @@ class AppServiceProvider extends ServiceProvider
         View::composer(['admin.*'], function ($view) {
             $unreadCommentsCount = UrunYorum::where(['is_read' => 0])->count();
             $lastUnreadComments = UrunYorum::where(['is_read' => 0])->get();
-            $view->with(compact('lastUnreadComments', 'unreadCommentsCount'));
+            $menus = $this->_getAdminMenus();
+
+            $view->with(compact('lastUnreadComments', 'unreadCommentsCount', 'menus'));
         });
         Urun::observe(UrunObserver::class);
     }
@@ -57,7 +59,29 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(ElBaseRepository::class, function ($app, $parameters) {
             return new ElBaseRepository($parameters['model']);
         });
+    }
 
-
+    private function _getAdminMenus()
+    {
+        $menus = config('admin.menus');
+        unset($menus[0]['users']);
+        $roleId = auth()->guard('admin')->user()->role_id;
+        $role = Role::where('id', $roleId)->first();
+        if ($role) {
+            $userPermissions = $role->permissions;
+            if ($userPermissions) {
+                $userPermissions = $role->permissions->pluck('name');
+                foreach ($menus as $index => $header) {
+                    foreach ($header as $k => $head) {
+                        if ($k != 'title') {
+                            if (!$userPermissions->contains($head['permission'])) {
+                                unset($menus[$index][$k]);
+                            }
+                        }
+                    }
+                }
+            }
+            return $menus;
+        }
     }
 }

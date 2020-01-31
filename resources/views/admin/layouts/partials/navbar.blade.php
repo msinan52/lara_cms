@@ -104,27 +104,26 @@
         </div>
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
-            @foreach(config('admin.menus') as $index=>$menu)
+            @foreach($menus as $index=>$menu)
                 <li class="header">{{ $menu['title'] }}</li>
                 @foreach($menu as $subI=>$item)
-                    @if($subI != 'title' && $item[3])
-                        <li class="{{ isset($item[4]) ? 'treeview':'' }}">
-                            <a href="{{route($item[2]) }}">
-                                <i class="{{ $item[0] }}"></i>
-                                <span>{{ $item[1] }}</span>
+                    @if($subI != 'title' && $item['active'])
+                        <li class="{{ isset($item['subs']) ? 'treeview':'' }}">
+                            <a href="{{route($item['routeName']) }}">
+                                <i class="{{ $item['icon'] }}"></i>
+                                <span>{{ $item['title'] }}</span>
                                 <span class="pull-right-container">
-                                 @if(isset($item[4]))
+                                 @if(isset($item['subs']))
                                         <i class="fa fa-angle-left pull-right"></i>
                                     @endif
                          </span>
                             </a>
-                            @if(isset($item[4]))
-                                <ul class="treeview-menu">
-                                    <li><a href="{{ route('admin.products') }}"><i class="fa fa-circle-o"></i> Ürün Listesi</a></li>
+                            @if(isset($item['subs']))
 
-                                    <li><a href="{{ route('admin.product.attribute.list') }}"><i class="fa fa-circle-o"></i> Ürün
-                                            Özellikler</a></li>
-                                    <li><a href="{{ route('admin.product.comments.list') }}"><i class="fa fa-circle-o"></i> Ürün Yorumları</a></li>
+                                <ul class="treeview-menu">
+                                    @foreach($item['subs'] as $sub)
+                                        <li><a href="{{ route($sub['routeName']) }}"><i class="{{ $sub['icon'] }}"></i> {{ $sub['title'] }}</a></li>
+                                    @endforeach
                                 </ul>
                             @endif
                         </li>
