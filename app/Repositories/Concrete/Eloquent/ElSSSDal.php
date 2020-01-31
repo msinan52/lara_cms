@@ -47,7 +47,7 @@ class ElSSSDal implements SSSInterface
 
     public function delete($id)
     {
-        return $this->model->delete();
+        return $this->model->delete($id);
     }
 
     public function with($relations, $filter = null, bool $paginate = null, int $perPageItem = null)

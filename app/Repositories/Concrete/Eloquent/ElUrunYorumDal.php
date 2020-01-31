@@ -54,7 +54,7 @@ class ElUrunYorumDal implements UrunYorumInterface
 
     public function delete($id)
     {
-        return $this->model->delete();
+        return $this->model->delete($id);
     }
 
 
