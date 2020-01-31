@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Kullanici;
+use App\Models\Auth\Role;
 use App\Models\KullaniciDetay;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -65,26 +66,27 @@ class KullaniciController extends Controller
     public function newOrEditUser($user_id = 0)
     {
         $user = new Kullanici();
+        $roles = Role::all();
         $auth = Auth::guard('admin')->user();
         if ($user_id > 0) {
             $user = Kullanici::whereId($user_id)->firstOrFail();
             if ($user->email == config('admin.username') && $auth->email != config('admin.username'))
                 return back()->withErrors('yetkiniz yok');
         }
-        return view('admin.user.new_edit_user', compact('user'));
+        return view('admin.user.new_edit_user', compact('user', 'roles'));
     }
 
 
     public function saveUser($user_id = 0)
     {
+
         $email_validate = (int)$user_id == 0 ? 'email|unique:kullanicilar' : 'email';
         $this->validate(request(), [
             'name' => 'required|min:3|max:50',
             'surname' => 'required|min:3|max:50',
             'email' => $email_validate,
-            'phone' => 'required'
         ]);
-        $request_data = request()->only('name', 'surname', 'email');
+        $request_data = request()->only('name', 'surname', 'email', 'role_id');
         if (\request()->filled('password'))
             $request_data['password'] = Hash::make(request('password'));
         $request_data['is_active'] = request()->has('is_active') ? 1 : 0;

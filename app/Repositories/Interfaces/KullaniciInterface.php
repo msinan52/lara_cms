@@ -9,4 +9,6 @@ interface KullaniciInterface extends BaseRepositoryInterface
     public function createRole($data);
 
     public function updateRole($id, $data);
+
+    public function deleteRole($id);
 }

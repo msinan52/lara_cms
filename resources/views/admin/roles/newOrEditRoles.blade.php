@@ -10,9 +10,6 @@
                     › <a href="{{ route('admin.roles') }}"> Roller</a>
                     › {{ $item->name }}
                 </div>
-                <div class="col-md-2 text-right mr-3">
-                    <a type="submit" onclick="document.getElementById('form').submit()" class="btn btn-success btn-sm">Kaydet</a>
-                </div>
             </div>
         </div>
     </div>
@@ -37,12 +34,12 @@
                             </div>
                             <div class="form-group col-md-10">
                                 <label for="exampleInputEmail1">Kısa Açıklama</label>
-                                <input name="description" class="form-control" id="desc" value="{{ $item->desc }}">
+                                <input name="description" class="form-control" id="desc" value="{{ $item->description }}">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-12">
-                                <select multiple class="form-control" style="height: 600px" name="roles[]">
+                                <select multiple class="form-control" style="height: 600px" name="roles[]" required>
                                     @foreach($allPermissions as $permission)
                                         <option value="{{ $permission->id }}" {{ collect($userPermission)->contains($permission->id) ? 'selected' : '' }}> {{ $permission->name}} </option>
                                     @endforeach

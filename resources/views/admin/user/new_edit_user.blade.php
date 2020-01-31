@@ -54,7 +54,7 @@
                             </div>
                             <div class="form-group">
 
-                                <div class="form-group col-md-6">
+                                <div class="form-group col-md-3">
                                     <label>Telefon:</label>
                                     <div class="input-group">
                                         <div class="input-group-addon">
@@ -62,6 +62,17 @@
                                         </div>
                                         <input type="text" name="phone" value="{{ old('phone', $user->detail->phone )}}" class="form-control"
                                                data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label>Role:</label>
+                                    <div class="input-group">
+                                        <select name="role_id" id="" class="form-control col-md-6">
+                                            <option value="">Role Seçiniz</option>
+                                            @foreach($roles as $role)
+                                                <option value="{{ $role->id }}" {{ $user->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                                 <!-- /.input group -->

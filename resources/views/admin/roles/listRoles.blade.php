@@ -45,7 +45,7 @@
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="7" class="text-center"><h5>SSS Bulunamadı</h5></td>
+                                <td colspan="7" class="text-center"><h5>Rol Bulunamadı</h5></td>
                             </tr>
                         @endif
 

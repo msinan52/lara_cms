@@ -66,7 +66,6 @@ class UrunController extends Controller
     {
         $categories = $this->categoryService->all();
         $product = new Urun();
-        $markalar = AracMarka::with('modeller')->whereActive(1)->get();
         $selected_categories = $productDetails = $productVariants = $productSelectedSubAttributesIdsPerAttribute = $selectedAttributeIdList = $productSelectedSubAttributesIdsPerAttribute = [];
         $brands = $this->_brandService->all(['active' => 1]);
         $companies = $this->_productCompanyService->all(['active' => 1]);

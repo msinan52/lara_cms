@@ -95,4 +95,16 @@ class ElKullaniciDal implements KullaniciInterface
             Log::addLog('error', 'rol güncellerken bir sorun oluştu', $exception->getMessage(), 1);
         }
     }
+
+    public function deleteRole($id)
+    {
+        $role = Role::find($id);
+        if ($role) {
+            $role->permissions()->detach();
+            $role->delete();
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

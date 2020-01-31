@@ -16,7 +16,7 @@ class Kullanici extends Authenticatable
     use SoftDeletes, Notifiable;
     protected $table = "kullanicilar";
     protected $fillable = [
-        'name', 'surname', 'email', 'password', 'activation_code', 'is_active', 'is_admin'
+        'name', 'surname', 'email', 'password', 'activation_code', 'is_active', 'is_admin','role_id'
     ];
 
     public function role()
