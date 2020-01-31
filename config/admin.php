@@ -3,7 +3,7 @@
 // admin constants
 $data = [
     'title' => 'CMS Yönetim',
-    'short_title' => 'CM',
+    'short_title' => 'CMS',
     'creator' => 'NeAjans',
     'creator_link' => 'http://google.com',
     'version' => 'v1.0.0',

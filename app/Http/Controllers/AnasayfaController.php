@@ -15,6 +15,7 @@ use App\Repositories\Interfaces\SSSInterface;
 use App\Repositories\Interfaces\UrunlerInterface;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class AnasayfaController extends Controller
@@ -45,5 +46,14 @@ class AnasayfaController extends Controller
     {
         $sss = $this->_sssService->all(['active' => 1]);
         return view('site.layouts.sss', compact('sss'));
+    }
+
+    public function sitemap()
+    {
+        $products = Urun::orderBy('id', 'DESC')->take(1000)->get();
+        $categories = Kategori::orderBy('id', 'DESC')->take(1000)->get();
+        $now = Carbon::now()->toAtomString();
+        $content = view('site.sitemap', compact('products', 'now', 'categories'));
+        return response($content)->header('Content-Type', 'application/xml');
     }
 }

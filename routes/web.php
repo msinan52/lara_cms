@@ -11,6 +11,7 @@ Route::post('iletisim', 'IletisimController@sendMail')->name('iletisim.sendMail'
 Route::get('sss', 'AnasayfaController@sss')->name('sss');
 
 Route::get('/', 'AnasayfaController@index')->name('homeView');
+Route::get('/sitemap.xml', 'AnasayfaController@sitemap');
 Route::get('/ara', 'AramaController@ara')->name('searchView');
 Route::get('/searchPageFilter', 'AramaController@searchPageFilterWithAjax');
 Route::get('/headerSearchBarOnChangeWithAjax', 'AramaController@headerSearchBarOnChangeWithAjax');

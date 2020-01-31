@@ -63,24 +63,28 @@ class AppServiceProvider extends ServiceProvider
 
     private function _getAdminMenus()
     {
-        $menus = config('admin.menus');
-        $roleId = auth()->guard('admin')->user()->role_id;
-        $role = Role::where('id', $roleId)->first();
-        if ($role) {
-            $userPermissions = $role->permissions;
-            if ($userPermissions) {
-                $userPermissions = $role->permissions->pluck('name');
-                foreach ($menus as $index => $header) {
-                    foreach ($header as $k => $head) {
-                        if ($k != 'title') {
-                            if (!$userPermissions->contains($head['permission'])) {
-                                unset($menus[$index][$k]);
+        try {
+            $menus = config('admin.menus');
+            $roleId = auth()->guard('admin')->user()->role_id;
+            $role = Role::where('id', $roleId)->first();
+            if ($role) {
+                $userPermissions = $role->permissions;
+                if ($userPermissions) {
+                    $userPermissions = $role->permissions->pluck('name');
+                    foreach ($menus as $index => $header) {
+                        foreach ($header as $k => $head) {
+                            if ($k != 'title') {
+                                if (!$userPermissions->contains($head['permission'])) {
+                                    unset($menus[$index][$k]);
+                                }
                             }
                         }
                     }
                 }
+                return $menus;
             }
-            return $menus;
+        } catch (\Exception $exception) {
+            return null;
         }
     }
 }
