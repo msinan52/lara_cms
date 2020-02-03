@@ -22,13 +22,11 @@ class AnasayfaController extends Controller
 {
     private $_productService;
     private $_campService;
-    private $_sssService;
 
-    public function __construct(UrunlerInterface $productService, KampanyaInterface $campService, SSSInterface $sssService)
+    public function __construct(UrunlerInterface $productService, KampanyaInterface $campService)
     {
         $this->_productService = $productService;
         $this->_campService = $campService;
-        $this->_sssService = $sssService;
     }
 
     public function index()
@@ -40,12 +38,6 @@ class AnasayfaController extends Controller
         $banners = Banner::whereActive(true)->take(6)->orderByDesc('id')->get();
         $camps = $this->_campService->getLatestActiveCampaigns(3);
         return view("site.index", compact('categories', 'bestSellers', 'banners', 'featuredProductTitle', 'featuredProducts', 'bestSellersTitles', 'camps'));
-    }
-
-    public function sss()
-    {
-        $sss = $this->_sssService->all(['active' => 1]);
-        return view('site.layouts.sss', compact('sss'));
     }
 
     public function sitemap()

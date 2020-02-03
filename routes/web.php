@@ -7,8 +7,12 @@ Route::get('/callback/{service}', 'SocialAuthController@callback');
 
 Route::get('test', 'TestController@index');
 Route::get('iletisim', 'IletisimController@index')->name('iletisim');
+Route::post('sss', 'SSSController@list')->name('sss');
+Route::post('referanslar', 'ReferenceController@list')->name('referanslar');
+Route::post('referanslar/{slug}', 'ReferenceController@detail')->name('referanslar.detail');
+Route::post('galeri', 'GaleriController@detail')->name('gallery.list');
+Route::post('galeri/{slug}', 'GaleriController@detail')->name('gallery.detail');
 Route::post('iletisim', 'IletisimController@sendMail')->name('iletisim.sendMail');
-Route::get('sss', 'AnasayfaController@sss')->name('sss');
 
 Route::get('/', 'AnasayfaController@index')->name('homeView');
 Route::get('/sitemap.xml', 'AnasayfaController@sitemap');
