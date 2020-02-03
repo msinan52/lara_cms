@@ -122,7 +122,9 @@
 
                                 <ul class="treeview-menu">
                                     @foreach($item['subs'] as $sub)
-                                        <li><a href="{{ route($sub['routeName']) }}"><i class="{{ $sub['icon'] }}"></i> {{ $sub['title'] }}</a></li>
+                                        @if($sub['active'])
+                                            <li><a href="{{ route($sub['routeName']) }}"><i class="{{ $sub['icon'] }}"></i> {{ $sub['title'] }}</a></li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             @endif
