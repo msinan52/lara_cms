@@ -16,6 +16,7 @@ use App\Repositories\Interfaces\UrunlerInterface;
 use http\Client\Curl\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 
 class AnasayfaController extends Controller
@@ -32,6 +33,7 @@ class AnasayfaController extends Controller
     public function index()
     {
         $categories = Kategori::getCache();
+//        dump(app()->getLocale());
         $bestSellers = $this->_productService->getBestSellersProducts(null, 10);
         $featuredProducts = $this->_productService->getFeaturedProducts(null, 9);
         $bestSellersTitles = ['Yeni', 'En Favoriler', 'En Çok Sepetlenenler'];
@@ -47,5 +49,12 @@ class AnasayfaController extends Controller
         $now = Carbon::now()->toAtomString();
         $content = view('site.sitemap', compact('products', 'now', 'categories'));
         return response($content)->header('Content-Type', 'application/xml');
+    }
+
+    public function setLanguage($locale)
+    {
+        App::setLocale($locale);
+        session()->put('locale', $locale);
+        return redirect()->route('homeView');
     }
 }

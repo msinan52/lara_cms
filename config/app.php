@@ -225,4 +225,6 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
     ],
 
+    'available_locale' => ['tr', 'en']
+
 ];

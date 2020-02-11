@@ -15,7 +15,7 @@
                             <li><a href="{{route('kullanici.favorites.list')}}">Favorilerim </a></li>
                             <li><a href="{{route('sss')}}">Sık Sorulan Sorular </a></li>
                             {{--                            <li><a href="blog.html">Blog</a></li>--}}
-                            <li><a href="{{ route('iletisim') }}">Iletisim</a></li>
+                            <li><a href="{{ route('iletisim') }}">{{ __('lang.contact') }}</a></li>
                             @auth
                                 <li><a href="#" onclick="event.preventDefault();document.getElementById('logout_form').submit()">Çıkış</a></li>
                                 <form id="logout_form" action="{{ route('kullaniciLogoutView') }}" method="POST" style="display: none">

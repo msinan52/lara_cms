@@ -111,6 +111,7 @@ Route::group(['prefix' => 'brands'], function () {
     Route::get('getAllActiveCarBrands', 'AracMarkaController@getAllActiveCarBrands');
     Route::get('getModelsByBrandId/{id}', 'AracMarkaController@getModelsByMarkaId');
 });
+Route::get('lang/{locale}','AnasayfaController@setLanguage')->name('home.setLocale');
 // ------------Product Routes ----------------
 Route::get('{urunSlug}', 'UrunController@detail')->name('productDetail');
 Route::get('urun/quickView/{slug}', 'UrunController@quickView')->name('product.quickView');
