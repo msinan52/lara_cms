@@ -48,6 +48,9 @@
                             <th>Alt Başlık</th>
                             <th>Resim</th>
                             <th>Link</th>
+                            @if(env('MULTI_LANG'))
+                                <th>Dil</th>
+                            @endif
                             <th>Durum</th>
                             <th>#</th>
                         </tr>
@@ -59,6 +62,9 @@
                                     <td>{{ $l -> sub_title}}</td>
                                     <td><a href="{{ config('constants.image_paths.banner_image_folder_path') }}{{ $l->image }}"><i class="fa fa-image"></i></a></td>
                                     <td>{{ $l -> link}}</td>
+                                    @if(env('MULTI_LANG'))
+                                        <th><img src="{{ langIcon($l->lang) }}" alt=""></th>
+                                    @endif
                                     <td><i class="fa fa-{{ $l -> active == false ? 'times text-red' : 'check text-green' }}"></i></td>
                                     <td><a href="{{ route('admin.banners.delete',$l->id) }}" onclick="return confirm('Silmek istediğine emin misin ?')"><i
                                                 class="fa fa-trash text-red"></i></a></td>

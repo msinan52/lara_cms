@@ -21,7 +21,6 @@ class CreateReferencesTable extends Migration
             $table->string('image', 100)->nullable();
             $table->boolean('active')->default(true);
             $table->string('link')->nullable();
-
         });
     }
 

@@ -7,9 +7,11 @@ use App\Kullanici;
 use App\Models\Banner;
 use App\Models\Kampanya;
 use App\Models\Kategori;
+use App\Models\SiteOwnerModel;
 use App\Models\Urun;
 use App\Models\UrunAttribute;
 use App\Models\UrunSubAttribute;
+use App\Repositories\Interfaces\BannerInterface;
 use App\Repositories\Interfaces\KampanyaInterface;
 use App\Repositories\Interfaces\SSSInterface;
 use App\Repositories\Interfaces\UrunlerInterface;
@@ -33,6 +35,7 @@ class AnasayfaController extends Controller
     public function index()
     {
         $categories = Kategori::getCache();
+        dd(SiteOwnerModel::activeLanguages());
 //        dump(app()->getLocale());
         $bestSellers = $this->_productService->getBestSellersProducts(null, 10);
         $featuredProducts = $this->_productService->getFeaturedProducts(null, 9);

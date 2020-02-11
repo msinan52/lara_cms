@@ -36,7 +36,7 @@ class BannerController extends Controller
 
     public function save($id = 0)
     {
-        $request_data = \request()->only('title', 'sub_title', 'image', 'link');
+        $request_data = \request()->only('title', 'sub_title', 'image', 'link','lang');
         $request_data['active'] = request()->has('active') ? 1 : 0;
         if ($id != 0) {
             $entry = $this->model->update($request_data, $id);

@@ -40,7 +40,7 @@ class SSSController extends Controller
 
     public function save($id = 0)
     {
-        $request_data = \request()->only('title', 'desc');
+        $request_data = \request()->only('title', 'desc', 'lang');
         $request_data['active'] = request()->has('active') ? 1 : 0;
         if ($id != 0) {
             $entry = $this->model->update($request_data, $id);

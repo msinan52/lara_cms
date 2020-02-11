@@ -44,11 +44,21 @@
                                 <label for="exampleInputEmail1">Aktif Mi ?</label><br>
                                 <input type="checkbox" class="minimal" name="active" {{ $item->active == 1 ? 'checked': '' }}>
                             </div>
-
+                            @if(env('MULTI_LANG'))
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Dil</label>
+                                    <select name="lang" id="languageSelect" class="form-control">
+                                        @foreach($languages as $lang)
+                                            <option value="{{ $lang[0] }}" {{ $item->lang == $lang[0] ? 'selected' : '' }}> {{ $lang[1] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endif
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Kısa Açıklama</label>
                                 <input type="text" name="spot" class="form-control" maxlength="255" value="{{ $item->spot }}">
                             </div>
+
                         </div>
 
                     </div>

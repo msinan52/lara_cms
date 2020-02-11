@@ -35,3 +35,9 @@ function curLang()
 {
     return session()->get('lang', config('app.locale'));
 }
+
+function langIcon($langId)
+{
+    $imageName = \App\Models\SiteOwnerModel::getImageNameById($langId);
+    return "/uploads/site/langs/" . $imageName;
+}

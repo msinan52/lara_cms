@@ -47,6 +47,9 @@
                             <th>Başlık</th>
                             <th>Kısa Açıklama</th>
                             <th>Durum</th>
+                            @if(env('MULTI_LANG'))
+                                <th>Dil</th>
+                            @endif
                             <th>#</th>
                         </tr>
                         @if(count($list) > 0)
@@ -56,6 +59,9 @@
                                     <td><a href="{{ route('admin.content.edit',$l->id) }}"> {{ $l->title }}</a></td>
                                     <td>{{ str_limit($l->spot,170)}}</td>
                                     <td><i class="fa fa-{{ $l -> active == false ? 'times text-red' : 'check text-green' }}"></i></td>
+                                    @if(env('MULTI_LANG'))
+                                        <th><img src="{{ langIcon($l->lang) }}" alt=""></th>
+                                    @endif
                                     <td><a href="{{ route('admin.content.delete',$l->id) }}" onclick="return confirm('Silmek istediğine emin misin ?')"><i
                                                 class="fa fa-trash text-red"></i></a></td>
                                 </tr>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ContentManagementRequest;
 use App\Models\Content;
+use App\Models\SiteOwnerModel;
 use App\Repositories\Interfaces\IcerikYonetimInterface;
 use App\Http\Controllers\Controller;
 
@@ -33,12 +34,14 @@ class IcerikYonetimController extends Controller
         if ($id != 0) {
             $item = $this->model->getById($id);
         }
-        return view('admin.content.newOrEditContent', compact('item'));
+        $languages = SiteOwnerModel::activeLanguages();
+//        dd($languages);
+        return view('admin.content.newOrEditContent', compact('item', 'languages'));
     }
 
     public function save(ContentManagementRequest $request, $id = 0)
     {
-        $request_data = \request()->only('title', 'spot', 'desc');
+        $request_data = \request()->only('title', 'spot', 'desc', 'lang');
         $request_data['active'] = request()->has('active') ? 1 : 0;
         $i = 0;
         $request_data['slug'] = str_slug(request('title'));

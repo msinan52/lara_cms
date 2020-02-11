@@ -26,16 +26,15 @@
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
-                <form role="form" method="post" action="{{ route('admin.banners.save',$banner->id != null ? $banner->id : 0) }}" id="form"  enctype="multipart/form-data">
+                <form role="form" method="post" action="{{ route('admin.banners.save',$banner->id != null ? $banner->id : 0) }}" id="form" enctype="multipart/form-data">
                     {{ csrf_field() }}
                     <div class="box-body">
-                        <div class="form-row">
+                        <div class="row">
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1">Başlık</label>
                                 <input type="text" class="form-control" name="title" placeholder="başlık" required
                                        value="{{ old('title', $banner->title) }}">
                             </div>
-
                             <div class="form-group col-md-2">
                                 <label for="exampleInputEmail1">Alt Başlık</label>
                                 <input type="text" class="form-control" name="sub_title" placeholder="Alt Başlık"
@@ -46,18 +45,30 @@
                                 <input type="text" class="form-control" name="link" placeholder="Yönlendirelecek link"
                                        value="{{ old('link', $banner->link) }}">
                             </div>
+                            <div class="form-group col-md-2">
+                                <label for="image">Fotoğraf</label><br>
+                                <input type="file" class="form-control" name="image">
+                                @if($banner->image)
+                                    <span class="help-block"><a
+                                            href="{{ config('constants.image_paths.product_image_folder_path') }}{{ $banner->image }}">{{ $banner->image }}</a></span>
+                                @endif
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="exampleInputEmail1">Aktif Mi ?</label><br>
+                                <input type="checkbox" class="minimal" name="active" {{ $banner->active == 1 ? 'checked': '' }}>
+                            </div>
                         </div>
-                        <div class="form-group col-md-2">
-                            <label for="image">Fotoğraf</label><br>
-                            <input type="file" class="form-control" name="image">
-                            @if($banner->image)
-                                <span class="help-block"><a
-                                        href="{{ config('constants.image_paths.product_image_folder_path') }}{{ $banner->image }}">{{ $banner->image }}</a></span>
+                        <div class="row">
+                            @if(env('MULTI_LANG'))
+                                <div class="form-group col-md-2">
+                                    <label for="exampleInputEmail1">Dil</label>
+                                    <select name="lang" id="languageSelect" class="form-control">
+                                        @foreach($languages as $lang)
+                                            <option value="{{ $lang[0] }}" {{ $banner->lang == $lang[0] ? 'selected' : '' }}> {{ $lang[1] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             @endif
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="exampleInputEmail1">Aktif Mi ?</label><br>
-                            <input type="checkbox" class="minimal" name="active" {{ $banner->active == 1 ? 'checked': '' }}>
                         </div>
 
 

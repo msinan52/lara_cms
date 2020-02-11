@@ -7,6 +7,7 @@ use App\Listeners\LoggingListener;
 use App\Models\Auth\Role;
 use App\Models\Ayar;
 use App\Models\Kategori;
+use App\Models\SiteOwnerModel;
 use App\Models\Urun;
 use App\Models\UrunYorum;
 use App\Observers\UrunObserver;
@@ -40,8 +41,9 @@ class AppServiceProvider extends ServiceProvider
             $unreadCommentsCount = UrunYorum::where(['is_read' => 0])->count();
             $lastUnreadComments = UrunYorum::where(['is_read' => 0])->get();
             $menus = $this->_getAdminMenus();
+            $languages = SiteOwnerModel::activeLanguages();
 
-            $view->with(compact('lastUnreadComments', 'unreadCommentsCount', 'menus'));
+            $view->with(compact('lastUnreadComments', 'unreadCommentsCount', 'menus','languages'));
         });
         Urun::observe(UrunObserver::class);
     }
