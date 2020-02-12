@@ -14,4 +14,14 @@ class Permission extends Model
     {
         return $this->belongsToMany(Role::class);
     }
+
+    public static function justSuperAdminAccessThisControllers()
+    {
+        return [
+            'Role@list',
+            'Role@newOrEditForm',
+            'Role@save',
+            'Role@delete'
+        ];
+    }
 }

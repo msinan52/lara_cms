@@ -58,5 +58,10 @@ class RolesTableSeeder extends Seeder
         $admin_role = Role::where('name', 'super-admin')->first();
         // atache all permissions to admin role
         $admin_role->permissions()->attach($permission_ids);
+
+        // customer roles
+        $justSuperAdminExcludedControllers = Permission::select('id')->whereNotIn('name',Permission::justSuperAdminAccessThisControllers())->get('id')->pluck('id')->toarray();
+        $customerRole = Role::where('name','customer')->first();
+        $customerRole->permissions()->attach($justSuperAdminExcludedControllers);
     }
 }

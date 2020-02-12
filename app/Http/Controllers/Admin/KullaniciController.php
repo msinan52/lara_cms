@@ -70,9 +70,13 @@ class KullaniciController extends Controller
         $auth = Auth::guard('admin')->user();
         if ($user_id > 0) {
             $user = Kullanici::whereId($user_id)->firstOrFail();
+            if ($auth->email != config('admin.username'))
+                $roles = Role::whereNotIn('name', ['super-admin'])->get();
             if ($user->email == config('admin.username') && $auth->email != config('admin.username'))
                 return back()->withErrors('yetkiniz yok');
+
         }
+
         return view('admin.user.new_edit_user', compact('user', 'roles'));
     }
 
@@ -112,6 +116,8 @@ class KullaniciController extends Controller
         $user = Kullanici::where('id', $user_id)->firstOrFail();
         if ($user->email == config('admin.username'))
             return back()->withErrors('Bu kullanıcı silinemez');
+        $user->email = $user->email . '|' . str_random(10);
+        $user->save();
         $user->delete();
         session()->flash('message', ' isimli kullanıcı başarıyla silindi');
         return redirect(route('admin.users'));

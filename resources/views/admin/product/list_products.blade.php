@@ -19,7 +19,7 @@
         <div class="col-xs-12">
             <div class="box ">
                 <div class="box-header">
-                    <h3 class="box-title"><span class="help-block text-sm">{{ count($list) }} adet listeleniyor </span> </h3>
+                    <h3 class="box-title"><span class="help-block text-sm">{{ count($list) }} adet listeleniyor </span></h3>
 
                     <div class="box-tools">
                         <form action="{{ route('admin.products') }}" method="get" id="form">
@@ -32,14 +32,16 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-2  pull-right">
-                                    <select name="company_filter" class="form-control" id="company_filter" onchange="document.getElementById('form').submit()">
-                                        <option value="">--Mağazaya Göre Filtrele--</option>
-                                        @foreach($companies as $com)
-                                            <option value="{{ $com->id }}" {{ request('company_filter') == $com->id ? 'selected' : '' }}>{{ $com->title }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                @if(config('admin.product_companies_module'))
+                                    <div class="col-md-2  pull-right">
+                                        <select name="company_filter" class="form-control" id="company_filter" onchange="document.getElementById('form').submit()">
+                                            <option value="">--Mağazaya Göre Filtrele--</option>
+                                            @foreach($companies as $com)
+                                                <option value="{{ $com->id }}" {{ request('company_filter') == $com->id ? 'selected' : '' }}>{{ $com->title }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
                                 <div class="col-md-3 input-group input-group-sm hidden-xs  pull-right">
                                     <input type="text" name="q" class="form-control pull-right" placeholder="Ürünlerde ara.." value="{{ request('q') }}">
 

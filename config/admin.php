@@ -16,6 +16,7 @@ $data = [
     'order_module' => true,
     'reference_module' => true,
     'gallery_module' => false,
+    'our_team_module' => true,
     // if product module equal to false all product relations modules can not used
     'product_module' => true,
     'product_comment_module' => false,
@@ -57,7 +58,7 @@ $data['menus'] = [
             'active' => $data['users_module']
         ],
         'roles' => [
-            'icon' => 'fa fa-users',
+            'icon' => 'fa fa-user-times',
             'permission' => 'Role@list',
             'title' => 'Rol Yönetimi',
             'routeName' => 'admin.roles',
@@ -69,6 +70,13 @@ $data['menus'] = [
             'title' => 'Banner',
             'routeName' => 'admin.banners',
             'active' => $data['banner_module']
+        ],
+        'our_team' => [
+            'icon' => 'fa fa-users',
+            'permission' => 'OurTeam@list',
+            'title' => 'Takımımız',
+            'routeName' => 'admin.our_team',
+            'active' => $data['our_team_module']
         ],
         'category' => [
             'icon' => 'fa fa-files-o',

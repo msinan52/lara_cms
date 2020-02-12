@@ -35,8 +35,6 @@ class AnasayfaController extends Controller
     public function index()
     {
         $categories = Kategori::getCache();
-        dd(SiteOwnerModel::activeLanguages());
-//        dump(app()->getLocale());
         $bestSellers = $this->_productService->getBestSellersProducts(null, 10);
         $featuredProducts = $this->_productService->getFeaturedProducts(null, 9);
         $bestSellersTitles = ['Yeni', 'En Favoriler', 'En Çok Sepetlenenler'];

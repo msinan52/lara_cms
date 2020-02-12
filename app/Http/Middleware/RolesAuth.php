@@ -18,11 +18,8 @@ class RolesAuth
     {
         $roleId = auth()->guard('admin')->user()->role_id;
         $role = Role::where('id', $roleId)->first();
-//        dd($role);
-//        return $next($request);
         if ($role) {
             $permissions = $role->permissions;
-
             $actionName = class_basename($request->route()->getActionname());
             foreach ($permissions as $permission) {
                 $_namespaces_chunks = explode('\\', $permission->controller);

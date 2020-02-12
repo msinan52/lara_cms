@@ -16,6 +16,7 @@ use App\Repositories\Concrete\Eloquent\ElKullaniciDal;
 use App\Repositories\Concrete\Eloquent\ElKuponDal;
 use App\Repositories\Concrete\Eloquent\ElLogDal;
 use App\Repositories\Concrete\Eloquent\ElOdemeDal;
+use App\Repositories\Concrete\Eloquent\ElOurTeamDal;
 use App\Repositories\Concrete\Eloquent\ElReferenceDal;
 use App\Repositories\Concrete\Eloquent\ElSepetDal;
 use App\Repositories\Concrete\Eloquent\ElSiparisDal;
@@ -39,6 +40,7 @@ use App\Repositories\Interfaces\KullaniciInterface;
 use App\Repositories\Interfaces\KuponInterface;
 use App\Repositories\Interfaces\LogInterface;
 use App\Repositories\Interfaces\OdemeInterface;
+use App\Repositories\Interfaces\OurTeamInterface;
 use App\Repositories\Interfaces\ReferenceInterface;
 use App\Repositories\Interfaces\SepetInterface;
 use App\Repositories\Interfaces\SiparisInterface;
@@ -92,5 +94,6 @@ class AppRepositoryProvider extends ServiceProvider
         $this->app->bind(ReferenceInterface::class, ElReferenceDal::class);
         $this->app->bind(FotoGalleryInterface::class, ElFotoGalleryDal::class);
         $this->app->bind(IcerikYonetimInterface::class, ElIcerikYonetimDal::class);
+        $this->app->bind(OurTeamInterface::class, ElOurTeamDal::class);
     }
 }

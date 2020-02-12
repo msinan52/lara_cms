@@ -181,6 +181,14 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('save/{id}', 'RoleController@save')->name('admin.role.save');
             Route::get('delete/{id}', 'RoleController@delete')->name('admin.role.delete');
         });
+        //----- Admin/OurTeam/..
+        Route::group(['prefix' => 'our-team/'], function () {
+            Route::get('/', 'OurTeamController@list')->name('admin.our_team');
+            Route::get('new', 'OurTeamController@newOrEditForm')->name('admin.our_team.new');
+            Route::get('edit/{id}', 'OurTeamController@newOrEditForm')->name('admin.our_team.edit');
+            Route::post('save/{id}', 'OurTeamController@save')->name('admin.our_team.save');
+            Route::get('delete/{id}', 'OurTeamController@delete')->name('admin.our_team.delete');
+        });
     });
 
 

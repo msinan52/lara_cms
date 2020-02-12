@@ -41,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
             $unreadCommentsCount = UrunYorum::where(['is_read' => 0])->count();
             $lastUnreadComments = UrunYorum::where(['is_read' => 0])->get();
             $menus = $this->_getAdminMenus();
+//            dd($menus);
             $languages = SiteOwnerModel::activeLanguages();
 
             $view->with(compact('lastUnreadComments', 'unreadCommentsCount', 'menus','languages'));

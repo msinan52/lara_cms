@@ -19,6 +19,8 @@ return [
         'content_image_folder_path' => '/' . $project_images_path . '/icerikyonetim/',
         'reference_image_folder_path' => '/' . $project_images_path . '/referanslar/',
         'reference_image_upload_path' => $project_images_path . '/referanslar/',
+        'our_team_image_upload_path' => $project_images_upload_path . '/our_team/',
+        'our_team_image_folder_path' => '/' . $project_images_path . '/our_team/',
     ],
     'messages' => [
         'success_message' => 'İşlem başarılı şekilde gerçekleşti',
