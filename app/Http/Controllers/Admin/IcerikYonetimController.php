@@ -31,12 +31,13 @@ class IcerikYonetimController extends Controller
     public function newOrEditForm($id = 0)
     {
         $item = new Content();
+        $contents = $this->model->all();
         if ($id != 0) {
             $item = $this->model->getById($id);
         }
         $languages = SiteOwnerModel::activeLanguages();
 //        dd($languages);
-        return view('admin.content.newOrEditContent', compact('item', 'languages'));
+        return view('admin.content.newOrEditContent', compact('item', 'languages', 'contents'));
     }
 
     public function save(ContentManagementRequest $request, $id = 0)

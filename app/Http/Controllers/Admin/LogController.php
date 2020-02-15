@@ -40,7 +40,8 @@ class LogController extends Controller
 
     public function deleteAll()
     {
-        $this->dispatch(new DeleteAllLogsJobs());
-        return redirect(route('admin.logs'))->with('message', 'Loglar silinmek için sıraya(queues & jobs) alındı');
+//        $this->dispatch(new DeleteAllLogsJobs());
+        Log::truncate();
+        return redirect(route('admin.logs'))->with('message', 'Bütün log kayıtları silindi');
     }
 }

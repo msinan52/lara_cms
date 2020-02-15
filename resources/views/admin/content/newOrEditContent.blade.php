@@ -52,8 +52,18 @@
                                             <option value="{{ $lang[0] }}" {{ $item->lang == $lang[0] ? 'selected' : '' }}> {{ $lang[1] }}</option>
                                         @endforeach
                                     </select>
+
                                 </div>
                             @endif
+                            <div class="form-group col-md-2">
+                                <label for="exampleInputEmail1">Üst İçerik</label>
+                                <select name="lang" id="languageSelect" class="form-control">
+                                    @foreach($contents as $content)
+                                        <option value="{{ $content->id }}" {{ $content->id == $item->parent ? 'selected' : '' }}> {{ $content->title }}</option>
+                                    @endforeach
+                                </select>
+                                <span class="help-block">Hangi başlığın altında(alt kategori olarak) yayınlaması isteniyorsa üst olarak seçilmedilir</span>
+                            </div>
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Kısa Açıklama</label>
                                 <input type="text" name="spot" class="form-control" maxlength="255" value="{{ $item->spot }}">
