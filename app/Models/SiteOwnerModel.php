@@ -38,11 +38,11 @@ class SiteOwnerModel extends Model
 
     public static function getLabel($langId)
     {
-        return self::languages()[$langId][1];
+        return isset(self::languages()[$langId][1]) ? self::languages()[$langId][1] : '-';
     }
 
     public static function getImageNameById($langId)
     {
-        return isset(self::languages()[$langId][4]) ? self::languages()[$langId][4] : self::languages()[0][4];
+        return isset(self::languages()[$langId][4]) ? self::languages()[$langId][4] : self::languages()[self::LANG_TR][4];
     }
 }

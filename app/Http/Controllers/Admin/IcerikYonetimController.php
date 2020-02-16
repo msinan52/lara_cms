@@ -21,9 +21,9 @@ class IcerikYonetimController extends Controller
     {
         $query = request('q');
         if ($query) {
-            $list = $this->model->allWithPagination([['title', 'like', "%$query%"]]);
+            $list = $this->model->allWithPagination([['title', 'like', "%$query%"]],null,null,'parentContent');
         } else {
-            $list = $this->model->allWithPagination();
+            $list = $this->model->allWithPagination(null,null,null,'parentContent');
         }
         return view('admin.content.listContents', compact('list'));
     }
@@ -42,7 +42,7 @@ class IcerikYonetimController extends Controller
 
     public function save(ContentManagementRequest $request, $id = 0)
     {
-        $request_data = \request()->only('title', 'spot', 'desc', 'lang');
+        $request_data = \request()->only('title', 'spot', 'desc', 'lang', 'parent');
         $request_data['active'] = request()->has('active') ? 1 : 0;
         $i = 0;
         $request_data['slug'] = str_slug(request('title'));

@@ -45,6 +45,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Başlık</th>
+                            <th>Üst</th>
                             <th>Kısa Açıklama</th>
                             <th>Durum</th>
                             @if(env('MULTI_LANG'))
@@ -57,6 +58,11 @@
                                 <tr>
                                     <td>{{ $l ->id }}</td>
                                     <td><a href="{{ route('admin.content.edit',$l->id) }}"> {{ $l->title }}</a></td>
+                                    <td>
+                                        @if(!is_null($l->parent))
+                                            <a target="_blank" href="{{ route('admin.content.edit',$l->parent) }}">{{ $l->parentContent->title }} <i class="fa fa-external-link"></i></a>
+                                        @endif
+                                    </td>
                                     <td>{{ str_limit($l->spot,170)}}</td>
                                     <td><i class="fa fa-{{ $l -> active == false ? 'times text-red' : 'check text-green' }}"></i></td>
                                     @if(env('MULTI_LANG'))

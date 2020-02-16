@@ -57,7 +57,8 @@
                             @endif
                             <div class="form-group col-md-2">
                                 <label for="exampleInputEmail1">Üst İçerik</label>
-                                <select name="lang" id="languageSelect" class="form-control">
+                                <select name="parent" id="languageSelect" class="form-control">
+                                    <option value="">Üst Başlık Seçiniz</option>
                                     @foreach($contents as $content)
                                         <option value="{{ $content->id }}" {{ $content->id == $item->parent ? 'selected' : '' }}> {{ $content->title }}</option>
                                     @endforeach
