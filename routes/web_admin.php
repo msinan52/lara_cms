@@ -13,6 +13,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
     Route::get('/clear_cache', 'AnasayfaController@cacheClear')->name('admin.clearCache');
     Route::group(['middleware' => ['admin', 'admin.module', 'role']], function () {
         Route::get('home', 'AnasayfaController@index')->name('admin.home_page');
+        Route::get('contacts', 'AnasayfaController@contacts')->name('admin.contacts');
         Route::get('cikis', 'KullaniciController@logout')->name('admin.logout');
 
         //----- Admin/User/..

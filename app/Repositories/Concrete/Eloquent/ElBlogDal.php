@@ -61,7 +61,10 @@ class ElBlogDal implements BlogInterface
         if ($image_file->isValid()) {
             $file_name = $entry->id . '-' . str_slug($entry->title) . '.jpg';
             $image_resize = Image::make($image_file->getRealPath());
-            $image_resize->resize(870, 412);
+            if (Blog::IMAGE_RESIZE)
+                $image_resize->resize(Blog::IMAGE_RESIZE[0], Blog::IMAGE_RESIZE[1]);
+            else
+                $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
             $image_resize->save(public_path(config('constants.image_paths.blog_image_folder_path') . $file_name), 70);
             $entry->update(['image' => $file_name]);
         } else {

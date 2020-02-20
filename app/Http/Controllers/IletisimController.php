@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ContactRequest;
 use App\Mail\SiteContactMail;
 use App\Models\Ayar;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -16,10 +18,11 @@ class IletisimController extends Controller
         return view('site.iletisim.iletisim', compact('site'));
     }
 
-    public function sendMail()
+    public function sendMail(ContactRequest $request)
     {
         try {
             $data = \request()->only('name', 'email', 'message', 'phone');
+            Contact::create($data);
             Mail::to(env('MAIL_USERNAME'))->send(new SiteContactMail($data));
             return back()->with('message', "Mesajınız alındı yakında sizinle iletişime geçeçeğiz");
         } catch (\Exception $exception) {

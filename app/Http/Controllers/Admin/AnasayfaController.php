@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Kullanici;
+use App\Models\Contact;
 use App\Models\Kategori;
 use App\Models\Siparis;
 use App\Models\Urun;
@@ -43,6 +44,11 @@ class AnasayfaController extends Controller
         $data['best_sellers'] = $best_sellers;
         $data['sellers_per_month'] = $orders_count_per_month;
         return view('admin.index', compact('data'));
+    }
+
+    public function contacts()
+    {
+        return json_decode(Contact::orderByDesc('id')->get());
     }
 
     public function cacheClear()

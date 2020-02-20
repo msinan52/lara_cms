@@ -17,6 +17,8 @@ class Urun extends Model
 //    public $timestamps = false;
     public $perPage = 12;
     const PER_PAGE = 12;
+    const  IMAGE_QUALITY = 80;
+    const  IMAGE_RESIZE = null;
 
 
     public function categories()

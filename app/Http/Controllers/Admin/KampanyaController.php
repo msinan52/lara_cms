@@ -68,7 +68,7 @@ class KampanyaController extends Controller
         }
         if (request()->hasFile('image')) {
             $this->validate(request(), [
-                'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                'image' => 'image|mimes:jpg,png,jpeg,gif|max:'.config('admin.max_upload_size')
             ]);
             $this->model->uploadCampaignImage($entry, request()->file('image'));
         }

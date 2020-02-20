@@ -177,10 +177,11 @@ class ElUrunlerDal implements UrunlerInterface
             $image_resize = Image::make($image_file->getRealPath());
             $image_resize->backup();
             $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
-            $image_resize->save(public_path(config('constants.image_paths.product_image_folder_path') . $file_name), 50);
+            $image_resize->save(public_path(config('constants.image_paths.product_image_folder_path') . $file_name), Urun::IMAGE_QUALITY);
             $image_resize->reset();
-            $image_resize->resize(270, 250);
-            $image_resize->save(public_path(config('constants.image_paths.product270x250_folder_path') . $file_name), 50);
+            if (Urun::IMAGE_RESIZE)
+                $image_resize->resize(Urun::IMAGE_RESIZE[0], Urun::IMAGE_RESIZE[1]);
+            $image_resize->save(public_path(config('constants.image_paths.product270x250_folder_path') . $file_name), Urun::IMAGE_QUALITY);
             $product->update(['image' => $file_name]);
         } else {
             session()->flash('message', $image_file->getErrorMessage());

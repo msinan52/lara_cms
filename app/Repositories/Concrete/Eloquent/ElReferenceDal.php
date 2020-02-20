@@ -69,8 +69,9 @@ class ElReferenceDal implements ReferenceInterface
             if ($image_file->isValid()) {
                 $file_name = $reference->id . '-' . str_slug($reference->title) . '.jpg';
                 $image_resize = Image::make($image_file->getRealPath());
-                $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
-                $image_resize->save(public_path(config('constants.image_paths.reference_image_folder_path') . $file_name), 50);
+                if (Referance::IMAGE_RESIZE)
+                    $image_resize->resize(Referance::IMAGE_RESIZE[0], Referance::IMAGE_RESIZE[1]);
+                $image_resize->save(public_path(config('constants.image_paths.reference_image_folder_path') . $file_name), Referance::IMAGE_QUALITY);
                 $reference->update(['image' => $file_name]);
             } else {
                 session()->flash('message', $image_file->getErrorMessage());

@@ -11,4 +11,7 @@ class Banner extends Model
     protected $table = "banner";
     public $timestamps = true;
     public $guarded = [];
+
+    const  IMAGE_QUALITY = 90;
+    const  IMAGE_RESIZE = null;
 }

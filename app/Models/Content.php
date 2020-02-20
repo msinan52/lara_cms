@@ -9,6 +9,8 @@ class Content extends Model
     protected $table = 'icerik_yonetim';
     protected $perPage = 20;
     protected $guarded = [];
+    const  IMAGE_QUALITY = 60;
+    const  IMAGE_RESIZE = null;
 
     public function parentContent()
     {

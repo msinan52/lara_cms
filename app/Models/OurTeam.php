@@ -10,4 +10,7 @@ class OurTeam extends Model
     protected $table = "takimimiz";
     public $timestamps = false;
     public $guarded = [];
+
+    const  IMAGE_QUALITY = 90;
+    const  IMAGE_RESIZE = null;
 }

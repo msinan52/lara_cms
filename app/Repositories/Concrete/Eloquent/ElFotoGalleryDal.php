@@ -75,8 +75,9 @@ class ElFotoGalleryDal implements FotoGalleryInterface
             if ($image_file->isValid()) {
                 $file_name = $reference->id . '-' . str_slug($reference->title) . '.jpg';
                 $image_resize = Image::make($image_file->getRealPath());
-                $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
-                $image_resize->save(public_path(config('constants.image_paths.gallery_main_image_folder_path') . $file_name), 50);
+                if (Gallery::IMAGE_RESIZE)
+                    $image_resize->resize(Gallery::IMAGE_RESIZE[0], Gallery::IMAGE_RESIZE[1]);
+                $image_resize->save(public_path(config('constants.image_paths.gallery_main_image_folder_path') . $file_name), Gallery::IMAGE_QUALITY);
                 $reference->update(['image' => $file_name]);
             } else {
                 session()->flash('message', $image_file->getErrorMessage());
@@ -98,8 +99,9 @@ class ElFotoGalleryDal implements FotoGalleryInterface
                     if ($file->isValid()) {
                         $file_name = $galleryId . '-' . str_slug($entry->title) . str_random(6) . '.jpg';
                         $image_resize = Image::make($file->getRealPath());
-                        $image_resize->resize((getimagesize($file)[0] / 2), getimagesize($file)[1] / 2);
-                        $image_resize->save(public_path(config('constants.image_paths.gallery_images_folder_path') . $file_name), 50);
+                        if (GalleryImages::IMAGE_RESIZE)
+                            $image_resize->resize(GalleryImages::IMAGE_RESIZE[0], GalleryImages::IMAGE_RESIZE[1]);
+                        $image_resize->save(public_path(config('constants.image_paths.gallery_images_folder_path') . $file_name), GalleryImages::IMAGE_QUALITY);
                         GalleryImages::create(['gallery_id' => $galleryId, 'image' => $file_name]);
                     }
                 } else {

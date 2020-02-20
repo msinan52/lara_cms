@@ -68,17 +68,17 @@ class FotoGalleryController extends Controller
         if ($entry) {
             if (request()->hasFile('image') && $entry) {
                 $this->validate(request(), [
-                    'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                    'image' => 'image|mimes:jpg,png,jpeg,gif|max:' . config('admin.max_upload_size')
                 ]);
                 $this->model->uploadMainImage($entry, request()->file('image'));
             }
             if (request()->hasFile('imageGallery')) {
                 $this->validate(request(), [
-                    'imageGallery.*' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                    'imageGallery.*' => 'image|mimes:jpg,png,jpeg,gif|max:' . config('admin.max_upload_size')
                 ]);
                 $this->model->uploadImageGallery($entry->id, request()->file('imageGallery'), $entry);
             }
-            return redirect(route('admin.gallery.edit',$entry->id));
+            return redirect(route('admin.gallery.edit', $entry->id));
         }
 
         return redirect(route('admin.gallery.list'));

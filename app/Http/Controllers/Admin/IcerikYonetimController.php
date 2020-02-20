@@ -21,9 +21,9 @@ class IcerikYonetimController extends Controller
     {
         $query = request('q');
         if ($query) {
-            $list = $this->model->allWithPagination([['title', 'like', "%$query%"]],null,null,'parentContent');
+            $list = $this->model->allWithPagination([['title', 'like', "%$query%"]], null, null, 'parentContent');
         } else {
-            $list = $this->model->allWithPagination(null,null,null,'parentContent');
+            $list = $this->model->allWithPagination(null, null, null, 'parentContent');
         }
         return view('admin.content.listContents', compact('list'));
     }
@@ -57,7 +57,7 @@ class IcerikYonetimController extends Controller
         }
         if (request()->hasFile('image') && $entry) {
             $this->validate(request(), [
-                'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                'image' => 'image|mimes:jpg,png,jpeg,gif|max:' . config('admin.max_upload_size')
             ]);
             $this->model->uploadMainImage($entry, request()->file('image'));
         }

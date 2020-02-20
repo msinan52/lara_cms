@@ -67,9 +67,11 @@ class ElOurTeamDal implements OurTeamInterface
         if ($image_file->isValid()) {
             $file_name = $entry->id . '-' . str_slug($entry->title) . '.jpg';
             $image_resize = Image::make($image_file->getRealPath());
-            $image_resize->resize(870, 412);
-            $image_resize->save(public_path(config('constants.image_paths.our_team_image_folder_path') . $file_name), 50);
-//            $image_resize->save(config('constants.image_paths.our_team_image_upload_path') . $file_name, 70);
+            if (OurTeam::IMAGE_RESIZE)
+                $image_resize->resize(OurTeam::IMAGE_RESIZE[0], OurTeam::IMAGE_RESIZE[1]);
+            else
+                $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
+            $image_resize->save(public_path(config('constants.image_paths.our_team_image_folder_path') . $file_name), OurTeam::IMAGE_QUALITY);
             $entry->update(['image' => $file_name]);
         } else {
             dd($image_file->getErrorMessage());

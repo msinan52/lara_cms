@@ -146,7 +146,7 @@ class UrunController extends Controller
             }
             if (request()->hasFile('imageGallery')) {
                 $this->validate(request(), [
-                    'imageGallery.*' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                    'imageGallery.*' => 'image|mimes:jpg,png,jpeg,gif|max'.config('admin.max_upload_size')
                 ]);
                 $this->model->addProductImageGallery($entry->id, request()->file('imageGallery'), $entry);
             }

@@ -47,7 +47,7 @@ class UrunMarkaController extends Controller
         }
         if (request()->hasFile('image')) {
             $this->validate(request(), [
-                'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                'image' => 'image|mimes:jpg,png,jpeg,gif|'.config('admin.max_upload_size')
             ]);
             $this->model->uploadBrandMainImage($entry, request()->file('image'));
         }

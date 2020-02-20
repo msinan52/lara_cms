@@ -10,6 +10,8 @@ class Gallery extends Model
     protected $table = 'gallery';
     protected $guarded = [];
     protected $perPage = 10;
+    const  IMAGE_QUALITY = 90;
+    const  IMAGE_RESIZE = null;
 
 
     public function images()

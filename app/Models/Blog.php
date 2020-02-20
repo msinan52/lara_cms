@@ -10,4 +10,7 @@ class Blog extends Model
     protected $table = "blog";
     public $timestamps = true;
     public $guarded = [];
+
+    const  IMAGE_QUALITY = 80;
+    const  IMAGE_RESIZE = null;
 }
