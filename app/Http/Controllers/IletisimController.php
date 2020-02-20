@@ -25,7 +25,7 @@ class IletisimController extends Controller
         } catch (\Exception $exception) {
             session()->flash('message', "Mesajı göndeririken hata oluştu daha sonra tekrar deneyin");
             session()->flash('message_type', "danger");
+            return back();
         }
-
     }
 }

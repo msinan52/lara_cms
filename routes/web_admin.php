@@ -189,6 +189,11 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {
             Route::post('save/{id}', 'OurTeamController@save')->name('admin.our_team.save');
             Route::get('delete/{id}', 'OurTeamController@delete')->name('admin.our_team.delete');
         });
+        //----- Admin/EBulten/..
+        Route::group(['prefix' => 'ebulten/'], function () {
+            Route::get('/', 'EBultenController@list')->name('admin.ebulten');
+            Route::get('delete/{id}', 'EBultenController@delete')->name('admin.ebulten.delete');
+        });
     });
 
 

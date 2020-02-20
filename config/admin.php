@@ -17,6 +17,7 @@ $data = [
     'reference_module' => true,
     'gallery_module' => false,
     'our_team_module' => true,
+    'e_bulten_module' => true,
     // if product module equal to false all product relations modules can not used
     'product_module' => true,
     'product_comment_module' => false,
@@ -77,6 +78,13 @@ $data['menus'] = [
             'title' => 'Takımımız',
             'routeName' => 'admin.our_team',
             'active' => $data['our_team_module']
+        ],
+        'e_bulten' => [
+            'icon' => 'fa fa-envelope',
+            'permission' => 'EBulten@list',
+            'title' => 'E-Bülten',
+            'routeName' => 'admin.ebulten',
+            'active' => $data['e_bulten_module']
         ],
         'category' => [
             'icon' => 'fa fa-files-o',
