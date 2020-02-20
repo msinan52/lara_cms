@@ -21,6 +21,8 @@ return [
         'reference_image_upload_path' => $project_images_path . '/referanslar/',
         'our_team_image_upload_path' => $project_images_upload_path . '/our_team/',
         'our_team_image_folder_path' => '/' . $project_images_path . '/our_team/',
+        'blog_image_upload_path' => $project_images_path . '/blog/',
+        'blog_image_folder_path' => '/' . $project_images_path . '/blog/',
     ],
     'messages' => [
         'success_message' => 'İşlem başarılı şekilde gerçekleşti',

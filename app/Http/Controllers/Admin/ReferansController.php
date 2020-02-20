@@ -40,8 +40,11 @@ class ReferansController extends Controller
     {
         $request_data = \request()->only('title', 'desc', 'link');
         $request_data['slug'] = str_slug(request('title'));
-        if ($this->_referenceService->all([['slug', $request_data['slug']], ['id', '!=', $id]], ['id'])->count() > 0) {
-            return back()->withInput()->withErrors('slug alanı zaten kayıtlı farklı başlık deneyin');
+        $i = 0;
+        $request_data['slug'] = str_slug(request('title'));
+        while ($this->model->all([['slug', $request_data['slug']], ['id', '!=', $id]], ['id'])->count() > 0) {
+            $request_data['slug'] = str_slug(request('title')) . '-' . $i;
+            $i++;
         }
         $request_data['active'] = request()->has('active') ? 1 : 0;
         if ($id != 0) {
@@ -51,7 +54,7 @@ class ReferansController extends Controller
         }
         if (request()->hasFile('image') && $entry) {
             $this->validate(request(), [
-                'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                'image' => 'image|mimes:jpg,png,jpeg,gif|max:'.config('admin.max_upload_size')
             ]);
             $this->_referenceService->uploadMainImage($entry, request()->file('image'));
         }

@@ -140,7 +140,7 @@ class UrunController extends Controller
             } while ($variantIndex < 10);
             if (request()->hasFile('image')) {
                 $this->validate(request(), [
-                    'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
+                    'image' => 'image|mimes:jpg,png,jpeg,gif|max:'.config('admin.max_upload_size')
                 ]);
                 $this->model->uploadProductMainImage($entry, request()->file('image'));
             }

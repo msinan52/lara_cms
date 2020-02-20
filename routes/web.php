@@ -13,6 +13,7 @@ Route::post('referanslar/{slug}', 'ReferenceController@detail')->name('referansl
 Route::post('galeri', 'GaleriController@detail')->name('gallery.list');
 Route::post('galeri/{slug}', 'GaleriController@detail')->name('gallery.detail');
 Route::post('iletisim', 'IletisimController@sendMail')->name('iletisim.sendMail');
+Route::post('createBulten', 'EBultenController@createEBulten')->name('ebulten.create');
 
 Route::get('/', 'AnasayfaController@index')->name('homeView');
 Route::get('/sitemap.xml', 'AnasayfaController@sitemap');

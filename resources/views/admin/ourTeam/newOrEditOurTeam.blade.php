@@ -35,7 +35,7 @@
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1">Pozisyon</label>
                                 <input type="text" class="form-control" name="title" placeholder="örn:asistan,görevli vb."
-                                       value="{{ old('position', $item->title) }}">
+                                       value="{{ old('position', $item->position) }}">
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="image">Fotoğraf</label><br>

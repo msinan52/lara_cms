@@ -7,12 +7,14 @@ $data = [
     'creator' => 'NeAjans',
     'creator_link' => 'http://google.com',
     'version' => 'v1.0.0',
+    'max_upload_size' => 3024,
     // modules can be active or passive
     'settings_module' => true,
     'banner_module' => true,
     'users_module' => true,
     'content_management_module' => true,
     'sss_module' => true,
+    'blog_module' => true,
     'order_module' => true,
     'reference_module' => true,
     'gallery_module' => false,
@@ -71,6 +73,13 @@ $data['menus'] = [
             'title' => 'Banner',
             'routeName' => 'admin.banners',
             'active' => $data['banner_module']
+        ],
+        'blog' => [
+            'icon' => 'fa fa-book',
+            'permission' => 'Blog@list',
+            'title' => 'Blog',
+            'routeName' => 'admin.blog',
+            'active' => $data['blog_module']
         ],
         'our_team' => [
             'icon' => 'fa fa-users',

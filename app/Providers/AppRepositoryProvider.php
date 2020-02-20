@@ -6,6 +6,7 @@ use App\Repositories\Concrete\Eloquent\ElAccountDal;
 use App\Repositories\Concrete\Eloquent\ElAracMarkaDal;
 use App\Repositories\Concrete\Eloquent\ElAyarlarDal;
 use App\Repositories\Concrete\Eloquent\ElBannerDal;
+use App\Repositories\Concrete\Eloquent\ElBlogDal;
 use App\Repositories\Concrete\Eloquent\ElCityTownDal;
 use App\Repositories\Concrete\Eloquent\ElEBultenDal;
 use App\Repositories\Concrete\Eloquent\ElFavorilerDal;
@@ -31,6 +32,7 @@ use App\Repositories\Interfaces\AccountInterface;
 use App\Repositories\Interfaces\AracMarkaInterface;
 use App\Repositories\Interfaces\AyarlarInterface;
 use App\Repositories\Interfaces\BannerInterface;
+use App\Repositories\Interfaces\BlogInterface;
 use App\Repositories\Interfaces\CityTownInterface;
 use App\Repositories\Interfaces\EBultenInterface;
 use App\Repositories\Interfaces\FavorilerInterface;
@@ -98,5 +100,6 @@ class AppRepositoryProvider extends ServiceProvider
         $this->app->bind(IcerikYonetimInterface::class, ElIcerikYonetimDal::class);
         $this->app->bind(OurTeamInterface::class, ElOurTeamDal::class);
         $this->app->bind(EBultenInterface::class, ElEBultenDal::class);
+        $this->app->bind(BlogInterface::class, ElBlogDal::class);
     }
 }

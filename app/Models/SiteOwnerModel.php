@@ -28,6 +28,17 @@ class SiteOwnerModel extends Model
         ];
     }
 
+    public static function getLanguageIdByShortName($shortName)
+    {
+        $items = collect(self::languages())->filter(function ($item, $key) use ($shortName) {
+            if ($item[3] == $shortName)
+                return true;
+        });
+        if (count($items) > 0)
+            return $items->first()[0];
+        return self::languages()[1][0];
+    }
+
     public static function activeLanguages()
     {
         return collect(self::languages())->filter(function ($item, $key) {

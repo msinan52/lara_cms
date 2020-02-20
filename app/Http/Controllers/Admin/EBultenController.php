@@ -20,4 +20,10 @@ class EBultenController extends Controller
         $list = $this->_bultenService->allWithPagination();
         return view('admin.ebulten.listBultens', compact('list'));
     }
+
+    public function delete($id)
+    {
+        $this->_bultenService->delete($id);
+        return redirect(route('admin.ebulten'));
+    }
 }
