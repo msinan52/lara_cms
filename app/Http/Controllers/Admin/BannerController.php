@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+
 use App\Models\Banner;
 use App\Repositories\Interfaces\BannerInterface;
 use App\Http\Controllers\Controller;
@@ -36,7 +37,7 @@ class BannerController extends Controller
 
     public function save($id = 0)
     {
-        $request_data = \request()->only('title', 'sub_title', 'image', 'link','lang');
+        $request_data = \request()->only('title', 'sub_title', 'image', 'link', 'lang');
         $request_data['active'] = request()->has('active') ? 1 : 0;
         if ($id != 0) {
             $entry = $this->model->update($request_data, $id);
@@ -45,14 +46,14 @@ class BannerController extends Controller
         }
         if (request()->hasFile('image')) {
             $this->validate(request(), [
-                'image' => 'image|mimes:jpg,png,jpeg,gif|max:'.config('admin.max_upload_size')
+                'image' => 'image|mimes:jpg,png,jpeg,gif|max:' . config('admin.max_upload_size')
             ]);
             $this->model->uploadBannerImage($entry, request()->file('image'));
         }
         if (!is_null($entry))
-            return redirect(route('admin.banners'));
-        else
             return redirect(route('admin.banners.edit', $id));
+        else
+            return back()->withInput();
     }
 
     public function delete($id)

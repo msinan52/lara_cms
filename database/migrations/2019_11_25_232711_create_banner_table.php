@@ -17,7 +17,7 @@ class CreateBannerTable extends Migration
         Schema::create('banner', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 50);
-            $table->string('sub_title', 50)->nullable();
+            $table->string('sub_title', 255)->nullable();
             $table->string('image', 100)->nullable();
             $table->string('link', 100)->nullable();
             $table->boolean('active')->default(1);

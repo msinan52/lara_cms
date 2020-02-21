@@ -32,15 +32,15 @@
                         <div class="row">
                             <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1">Başlık</label>
-                                <input type="text" class="form-control" name="title" placeholder="başlık" required
-                                       value="{{ old('title', $banner->title) }}">
+                                <input type="text" class="form-control" name="title" placeholder="başlık" required maxlength="50"
+                                       value="{{ old('title', old('title',$banner->title)) }}">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="exampleInputEmail1">Alt Başlık</label>
+                                <input type="text" class="form-control" name="sub_title" placeholder="Alt Başlık" maxlength="255"
+                                       value="{{ old('sub_title', $banner->sub_title) }}">
                             </div>
                             <div class="form-group col-md-2">
-                                <label for="exampleInputEmail1">Alt Başlık</label>
-                                <input type="text" class="form-control" name="sub_title" placeholder="Alt Başlık"
-                                       value="{{ old('slug', $banner->sub_title) }}">
-                            </div>
-                            <div class="form-group col-md-3">
                                 <label for="exampleInputEmail1">Link</label>
                                 <input type="text" class="form-control" name="link" placeholder="Yönlendirelecek link"
                                        value="{{ old('link', $banner->link) }}">
@@ -53,7 +53,7 @@
                                             href="{{ config('constants.image_paths.product_image_folder_path') }}{{ $banner->image }}">{{ $banner->image }}</a></span>
                                 @endif
                             </div>
-                            <div class="form-group col-md-2">
+                            <div class="form-group col-md-1">
                                 <label for="exampleInputEmail1">Aktif Mi ?</label><br>
                                 <input type="checkbox" class="minimal" name="active" {{ $banner->active == 1 ? 'checked': '' }}>
                             </div>
