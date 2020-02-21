@@ -65,8 +65,11 @@ class ElUrunMarkaDal implements UrunMarkaInterface
         if ($image_file->isValid()) {
             $file_name = $brand->id . '-' . str_slug($brand->title) . '.jpg';
             $image_resize = Image::make($image_file->getRealPath());
-            $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
-            $image_resize->save(public_path(config('constants.image_paths.brand_image_folder_path') . $file_name), 50);
+            if (UrunMarka::IMAGE_RESIZE)
+                $image_resize->resize(UrunMarka::IMAGE_RESIZE[0], UrunMarka::IMAGE_RESIZE[1]);
+            else if (UrunMarka::IMAGE_RESIZE == null)
+                $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
+            $image_resize->save(public_path(config('constants.image_paths.brand_image_folder_path') . $file_name), UrunMarka::IMAGE_QUALITY);
             $brand->update(['image' => $file_name]);
         } else {
             session()->flash('message', $image_file->getErrorMessage());

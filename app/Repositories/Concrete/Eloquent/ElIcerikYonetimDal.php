@@ -71,7 +71,7 @@ class ElIcerikYonetimDal implements IcerikYonetimInterface
                 $image_resize = Image::make($image_file->getRealPath());
                 if (Content::IMAGE_RESIZE)
                     $image_resize->resize(Content::IMAGE_RESIZE[0], Content::IMAGE_RESIZE[1]);
-                else
+                else if (Content::IMAGE_RESIZE == null)
                     $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
                 $image_resize->save(public_path(config('constants.image_paths.content_image_folder_path') . $file_name), Content::IMAGE_QUALITY);
                 $content->update(['image' => $file_name]);

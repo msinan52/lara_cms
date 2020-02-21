@@ -71,6 +71,8 @@ class ElReferenceDal implements ReferenceInterface
                 $image_resize = Image::make($image_file->getRealPath());
                 if (Referance::IMAGE_RESIZE)
                     $image_resize->resize(Referance::IMAGE_RESIZE[0], Referance::IMAGE_RESIZE[1]);
+                else if (Referance::IMAGE_RESIZE == null)
+                    $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
                 $image_resize->save(public_path(config('constants.image_paths.reference_image_folder_path') . $file_name), Referance::IMAGE_QUALITY);
                 $reference->update(['image' => $file_name]);
             } else {

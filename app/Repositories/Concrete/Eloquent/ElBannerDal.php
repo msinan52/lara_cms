@@ -72,7 +72,7 @@ class ElBannerDal implements BannerInterface
             $image_resize = Image::make($image_file->getRealPath());
             if (Banner::IMAGE_RESIZE)
                 $image_resize->resize(Banner::IMAGE_RESIZE[0], Banner::IMAGE_RESIZE[1]);
-            else
+            else if (Banner::IMAGE_RESIZE == null)
                 $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
             $image_resize->save(public_path(config('constants.image_paths.banner_image_folder_path') . $file_name), Banner::IMAGE_QUALITY);
             $entry->update(['image' => $file_name]);

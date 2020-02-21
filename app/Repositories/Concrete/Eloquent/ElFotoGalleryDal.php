@@ -1,13 +1,8 @@
 <?php namespace App\Repositories\Concrete\Eloquent;
 
-use App\Models\City;
 use App\Models\Gallery;
 use App\Models\GalleryImages;
-use App\Models\Log;
-use App\Models\Town;
-use App\Models\UrunImage;
 use App\Repositories\Concrete\ElBaseRepository;
-use App\Repositories\Interfaces\CityTownInterface;
 use App\Repositories\Interfaces\FotoGalleryInterface;
 use App\Repositories\Traits\ResponseTrait;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -77,6 +72,8 @@ class ElFotoGalleryDal implements FotoGalleryInterface
                 $image_resize = Image::make($image_file->getRealPath());
                 if (Gallery::IMAGE_RESIZE)
                     $image_resize->resize(Gallery::IMAGE_RESIZE[0], Gallery::IMAGE_RESIZE[1]);
+                else if (Gallery::IMAGE_RESIZE == null)
+                    $image_resize->resize((getimagesize($image_file)[0] / 2), getimagesize($image_file)[1] / 2);
                 $image_resize->save(public_path(config('constants.image_paths.gallery_main_image_folder_path') . $file_name), Gallery::IMAGE_QUALITY);
                 $reference->update(['image' => $file_name]);
             } else {
@@ -101,6 +98,8 @@ class ElFotoGalleryDal implements FotoGalleryInterface
                         $image_resize = Image::make($file->getRealPath());
                         if (GalleryImages::IMAGE_RESIZE)
                             $image_resize->resize(GalleryImages::IMAGE_RESIZE[0], GalleryImages::IMAGE_RESIZE[1]);
+                        else if (GalleryImages::IMAGE_RESIZE == null)
+                            $image_resize->resize((getimagesize($file)[0] / 2), getimagesize($file)[1] / 2);
                         $image_resize->save(public_path(config('constants.image_paths.gallery_images_folder_path') . $file_name), GalleryImages::IMAGE_QUALITY);
                         GalleryImages::create(['gallery_id' => $galleryId, 'image' => $file_name]);
                     }
