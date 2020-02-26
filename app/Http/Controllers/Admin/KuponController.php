@@ -57,7 +57,9 @@ class KuponController extends Controller
             $entry = $this->model->create($request_data);
         }
         $entry->categories()->sync(\request('categories'));
-        return redirect(route('admin.coupons.edit', $entry->id));
+        if ($entry)
+            return redirect(route('admin.coupons.edit', $entry->id));
+        return back()->withInput();
     }
 
     public function delete($id)

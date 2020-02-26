@@ -41,7 +41,7 @@ class AyarlarController extends Controller
     public function save($id = 0)
     {
         \request()->validate(['desc' => 'required']);
-        $data = request()->only('title', 'desc', 'domain', 'keywords', 'facebook', 'instagram', 'twitter', 'instagram', 'youtube', 'footer_text', 'phone', 'mail', 'adres', 'amane','cargo_price');
+        $data = request()->only('title', 'desc', 'domain', 'keywords', 'facebook', 'instagram', 'twitter', 'instagram', 'youtube', 'footer_text', 'phone', 'mail', 'adres', 'amane', 'cargo_price');
         if ($id > 0) {
             $entry = $this->model->update($data, $id);
         } else {
@@ -51,7 +51,10 @@ class AyarlarController extends Controller
                 return redirect(route('admin.configs'))->withErrors("En fazla 1 adet site ayarı ekleyebilirsiniz");
             }
         }
-        \Cache::put('siteConfig', Ayar::find($id == 0 ? $entry->id : $id), 10);
+        if ($entry) {
+            $entry = $this->model->getById($entry->id);
+            Ayar::setCache($entry);
+        }
         return redirect(route('admin.config.edit', $id == 0 ? $entry->id : $id));
     }
 

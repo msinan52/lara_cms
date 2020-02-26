@@ -7,14 +7,14 @@ Route::get('/callback/{service}', 'SocialAuthController@callback');
 
 Route::get('test', 'TestController@index');
 Route::get('iletisim', 'IletisimController@index')->name('iletisim');
-Route::post('sss', 'SSSController@list')->name('sss');
+Route::get('sss', 'SSSController@list')->name('sss');
 Route::post('referanslar', 'ReferenceController@list')->name('referanslar');
 Route::post('{slug}', 'IcerikYonetimController@detail')->name('content.detail');
 Route::post('referanslar/{slug}', 'ReferenceController@detail')->name('referanslar.detail');
 Route::post('galeri', 'GaleriController@detail')->name('gallery.list');
+Route::get('galeri/{slug}', 'GaleriController@detail')->name('gallery.detail');
 Route::get('haberler','BlogController@list')->name('blog.list');
 Route::get('haberler/{slug}','BlogController@detail')->name('blog.detail');
-Route::post('galeri/{slug}', 'GaleriController@detail')->name('gallery.detail');
 Route::post('iletisim', 'IletisimController@sendMail')->name('iletisim.sendMail');
 Route::post('createBulten', 'EBultenController@createEBulten')->name('ebulten.create');
 

@@ -48,7 +48,9 @@ class UrunFirmaController extends Controller
         } else {
             $entry = $this->model->create($request_data);
         }
-        return redirect(route('admin.product.company.edit', $entry->id));
+        if ($entry)
+            return redirect(route('admin.product.company.edit', $entry->id));
+        return back()->withInput();
     }
 
     public function delete($id)

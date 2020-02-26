@@ -48,9 +48,8 @@ class SSSController extends Controller
             $entry = $this->model->create($request_data);
         }
         if (!is_null($entry))
-            return redirect(route('admin.sss'));
-        else
             return redirect(route('admin.sss.edit', $id));
+        return back()->withInput();
     }
 
     public function delete($id)

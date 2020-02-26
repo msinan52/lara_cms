@@ -45,16 +45,15 @@ class OurTeamController extends Controller
         } else {
             $entry = $this->model->create($request_data);
         }
-        if (request()->hasFile('image')) {
+        if (request()->hasFile('image') && $entry) {
             $this->validate(request(), [
                 'image' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
             ]);
             $this->model->uploadImage($entry, request()->file('image'));
         }
         if (!is_null($entry))
-            return redirect(route('admin.our_team'));
-        else
             return redirect(route('admin.our_team.edit', $id));
+        return back()->withInput();
     }
 
     public function delete($id)

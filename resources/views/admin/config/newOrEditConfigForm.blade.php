@@ -54,7 +54,7 @@
                             </div>
                             <div class="form-group col-md-5">
                                 <label for="image">Açıklama</label><br>
-                                <textarea class="form-control" name="desc" rows="5">{{ $config->desc }}</textarea>
+                                <textarea class="form-control" name="desc" rows="5">{{ old('desc',$config->desc) }}</textarea>
                             </div>
                             <div class="form-group col-md-1">
                                 <label for="image">Footer Logo</label><br>
@@ -78,11 +78,11 @@
                             </div>
                             <div class="form-group col-md-1">
                                 <label for="exampleInputEmail1">Kargo Fiyatı</label><br>
-                                <input type="number" class="minimal form-control" name="cargo_price" value="{{ $config->cargo_price }}">
+                                <input type="number" class="minimal form-control" name="cargo_price" value="{{ old('cargo_price',$config->cargo_price) }}">
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="image">Footer Text</label><br>
-                                <textarea class="form-control" name="footer_text">{{ $config->footer_text }}</textarea>
+                                <textarea class="form-control" name="footer_text">{{ old('footer_text',$config->footer_text) }}</textarea>
                             </div>
                             <button type="submit" class="hidden">Kaydet</button>
                         </div>

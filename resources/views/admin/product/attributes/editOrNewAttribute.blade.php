@@ -42,7 +42,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail1">Aktif Mi ?</label><br>
-                            <input type="checkbox" class="minimal" name="active" {{ $item->active == 1 ? 'checked': '' }}>
+                            <input type="checkbox" class="minimal" name="active" {{ old('active',$item->active) == 1 ? 'checked': '' }}>
                         </div>
 
 

@@ -50,7 +50,7 @@
                                 <input type="file" class="form-control" name="image">
                                 @if($banner->image)
                                     <span class="help-block"><a
-                                            href="{{ config('constants.image_paths.product_image_folder_path') }}{{ $banner->image }}">{{ $banner->image }}</a></span>
+                                            href="{{ config('constants.image_paths.banner_image_folder_path') }}{{ $banner->image }}">{{ $banner->image }}</a></span>
                                 @endif
                             </div>
                             <div class="form-group col-md-1">

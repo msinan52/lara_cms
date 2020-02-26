@@ -44,7 +44,7 @@ class BannerController extends Controller
         } else {
             $entry = $this->model->create($request_data);
         }
-        if (request()->hasFile('image')) {
+        if (request()->hasFile('image' && $entry)) {
             $this->validate(request(), [
                 'image' => 'image|mimes:jpg,png,jpeg,gif|max:' . config('admin.max_upload_size')
             ]);

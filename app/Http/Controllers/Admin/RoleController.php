@@ -58,8 +58,7 @@ class RoleController extends Controller
         }
         if (!is_null($entry))
             return redirect(route('admin.role.edit', $entry->id));
-        else
-            return redirect(route('admin.roles'));
+        return back()->withInput();
     }
 
     public function delete($id)

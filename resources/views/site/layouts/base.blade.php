@@ -9,8 +9,6 @@
     <meta property="og:site_name" content="{{ $site->title }}"/>
     <meta property="og:locale" content="tr_TR"/>
     <link rel="shortcut icon" href="/uploads/site/favicon.ico"/>
-    <meta name="author" content="modapixel">
-
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/site/assets/images/icons/favicon.ico">
     <meta name="csrf-token" content="{{csrf_token()}}">
@@ -23,7 +21,7 @@
 
 
 <div class="page-wrapper">
-    @include('site.layouts.partials.navbar')
+    @include('site.layouts.partials.header')
     <main class="main">
         @yield('content')
     </main><!-- End .main -->

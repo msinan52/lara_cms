@@ -152,7 +152,7 @@ class UrunController extends Controller
             }
             return redirect(route('admin.product.edit', $entry->id));
         }
-        return back();
+        return back()->withInput();
     }
 
     public function deleteProduct($product_id)

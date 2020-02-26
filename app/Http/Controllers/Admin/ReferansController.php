@@ -60,7 +60,7 @@ class ReferansController extends Controller
         }
         if ($entry)
             return redirect(route('admin.reference.edit', $entry->id));
-        return back();
+        return back()->withInput();
     }
 
     public function delete($id)

@@ -34,7 +34,7 @@
                             </div>
                             <div class="form-group col-md-10">
                                 <label for="exampleInputEmail1">Kısa Açıklama</label>
-                                <input name="description" class="form-control" id="desc" value="{{ $item->description }}">
+                                <input name="description" class="form-control" id="desc" value="{{ old('description',$item->description) }}">
                             </div>
                         </div>
                         <div class="form-row">

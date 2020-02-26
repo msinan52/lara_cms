@@ -55,7 +55,9 @@ class UrunOzellikController extends Controller
             }
         }
         UrunAttribute::clearCache();
-        return redirect(route('admin.product.attribute.edit', $entry->id));
+        if ($entry)
+            return redirect(route('admin.product.attribute.edit', $entry->id));
+        return back()->withInput();
     }
 
     public function deleteSubAttribute($id)

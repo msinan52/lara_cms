@@ -40,7 +40,7 @@
                                 <select name="parent_category" id="parent_category" class="form-control">
                                     <option value="">---Kategori Seçiniz --</option>
                                     @foreach($categories as $cat)
-                                        <option value="{{ $cat->id }}" {{ $cat->id == $category->parent_category ? 'selected' : '' }}>{{ $cat->title }}</option>
+                                        <option value="{{ $cat->id }}" {{ $cat->id == old('parent_category',$category->parent_category) ? 'selected' : '' }}>{{ $cat->title }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -52,7 +52,7 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="exampleInputEmail1">Aktif Mi ?</label><br>
-                            <input type="checkbox" class="minimal" name="active" {{ $category->active == 1 ? 'checked': '' }}>
+                            <input type="checkbox" class="minimal" name="active" {{ old('active',$category->active) == 1 ? 'checked': '' }}>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="exampleInputEmail1">icon</label><br>

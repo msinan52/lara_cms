@@ -50,12 +50,12 @@
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="exampleInputEmail1">Aktif Mi ?</label><br>
-                                <input type="checkbox" class="minimal" name="active" {{ $item->active == 1 ? 'checked': '' }}>
+                                <input type="checkbox" class="minimal" name="active" {{ old('active',$item->active) == 1 ? 'checked': '' }}>
                             </div>
 
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Açıklama</label>
-                                <textarea name="desc" class="form-control" id="desc" cols="30" rows="10" maxlength="255">{{ $item->desc }}</textarea>
+                                <textarea name="desc" class="form-control" id="desc" cols="30" rows="10" maxlength="255">{{ old('desc',$item->desc) }}</textarea>
                             </div>
                         </div>
 

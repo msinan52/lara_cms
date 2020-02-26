@@ -44,8 +44,8 @@
                             <div class="form-group col-md-1">
                                 <label for="discount_type">İndirim Tipi</label>
                                 <select name="discount_type" class="form-control">
-                                    <option value="1" {{ $entry->discount_type == 1 ? 'selected' : '' }}>Normal(Tl)</option>
-                                    <option value="2" {{ $entry->discount_type == 2 ? 'selected' : '' }}>Yüzde</option>
+                                    <option value="1" {{ old('discount_type',$entry->discount_type) == 1 ? 'selected' : '' }}>Normal(Tl)</option>
+                                    <option value="2" {{ old('discount_type',$entry->discount_type) == 2 ? 'selected' : '' }}>Yüzde</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
@@ -59,7 +59,7 @@
                             <div class="form-group col-md-2">
                                 <label for="exampleInputEmail1">Başlangıç Tarihi</label><br>
                                 <input class="form-control" type="datetime-local" name="start_date"
-                                       @if(!is_null($entry->start_date))
+                                       @if(!is_null(old('start_date',$entry->start_date)))
                                        value="{{date('Y-m-d', strtotime($entry->start_date)).'T'.date('H:i:s', strtotime($entry->start_date))}}" min="{{date('Y-m-d' .'T'. date('H:i:s'))}}"
                                        @else
                                        value="{{date('Y-m-d').'T'.date('H:i:s')}}"
@@ -70,7 +70,7 @@
                             <div class="form-group col-md-2">
                                 <label for="exampleInputEmail1">Bitiş Tarihi</label><br>
                                 <input class="form-control" type="datetime-local" name="end_date"
-                                       @if(!is_null($entry->end_date))
+                                       @if(!is_null(old('end_date',$entry->end_date)))
                                        value="{{date('Y-m-d', strtotime($entry->end_date)).'T'.date('H:i:s', strtotime($entry->end_date))}}" min="{{date('Y-m-d' .'T'. date('H:i:s'))}}"
                                        @else
                                        value="{{date('Y-m-d').'T'.date('H:i:s')}}"
@@ -80,7 +80,7 @@
                             <div class="form-group col-md-1">
                                 <label for="exampleInputEmail1">Aktif Mi ?</label><br>
                                 <input type="checkbox" class="minimal"
-                                       name="active" {{ $entry->active == 1 ? 'checked': '' }}>
+                                       name="active" {{ old('active',$entry->active) == 1 ? 'checked': '' }}>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="image">Fotoğraf</label><br>

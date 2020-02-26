@@ -66,14 +66,17 @@ class KampanyaController extends Controller
         } else {
             $entry = $this->model->create($request_data);
         }
-        if (request()->hasFile('image')) {
+        if (request()->hasFile('image') && $entry) {
             $this->validate(request(), [
-                'image' => 'image|mimes:jpg,png,jpeg,gif|max:'.config('admin.max_upload_size')
+                'image' => 'image|mimes:jpg,png,jpeg,gif|max:' . config('admin.max_upload_size')
             ]);
             $this->model->uploadCampaignImage($entry, request()->file('image'));
         }
         Kampanya::forgetCaches();
-        return redirect(route('admin.campaigns.edit', $entry->id));
+        if ($entry)
+            return redirect(route('admin.campaigns.edit', $entry->id));
+        return back()->withInput();
+
     }
 
     public function delete($id)

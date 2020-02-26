@@ -51,43 +51,6 @@
                                 </div><!-- End .row -->
                             </div><!-- End .widget -->
                         </div><!-- End .col-md-5 -->
-
-                        <div class="col-md-5">
-                            <div class="widget">
-                                <h4 class="widget-title">Site</h4>
-
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <ul class="links">
-                                            <li><a href="{{ route('sss') }}">Sık Sorulan Sorular</a></li>
-                                            <li><a href="{{ route('iletisim') }}">İletişim</a></li>
-                                            <li><a href="{{ route('siparisView') }}">Sipariş Takip</a></li>
-                                            <li><a href="{{ route('campaigns.list') }}">Kampanyalar</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <ul class="links">
-                                            <li><a href="{{ route('kullaniciRegisterView') }}">Üye Ol</a></li>
-                                            <li><a href="{{ route('homeView') }}/sitemap.xml">Site Haritası</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-2">
-                            <div class="widget">
-                                <h4 class="widget-title">Kategoriler</h4>
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <ul class="links">
-                                            @foreach($cacheCategories as $category)
-                                                <li><a href="{{ route('categoryDetail',$category->slug) }}" title="{{ $category->title }}">{{ $category->title }}</a></li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div><!-- End .row -->
                 </div><!-- End .col-lg-9 -->
             </div><!-- End .row -->

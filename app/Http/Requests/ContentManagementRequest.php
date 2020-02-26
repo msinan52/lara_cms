@@ -25,7 +25,8 @@ class ContentManagementRequest extends FormRequest
     {
         return [
             'title' => 'required|max:100',
-            'slug' => 'integer',
+            'spot'=>'max:255',
+            'desc'=>'max:65000',
         ];
     }
 }

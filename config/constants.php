@@ -23,6 +23,8 @@ return [
         'our_team_image_folder_path' => '/' . $project_images_path . '/our_team/',
         'blog_image_upload_path' => $project_images_path . '/blog/',
         'blog_image_folder_path' => '/' . $project_images_path . '/blog/',
+        'gallery_main_image_folder_path' => '/' . $project_images_path . '/galeri/',
+        'gallery_main_image_upload_path' => $project_images_path . '/galeri/',
     ],
     'messages' => [
         'success_message' => 'İşlem başarılı şekilde gerçekleşti',

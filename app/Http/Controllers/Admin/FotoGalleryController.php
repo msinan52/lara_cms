@@ -80,8 +80,7 @@ class FotoGalleryController extends Controller
             }
             return redirect(route('admin.gallery.edit', $entry->id));
         }
-
-        return redirect(route('admin.gallery.list'));
+        return back()->withInput();
     }
 
     public function delete($id)
@@ -93,6 +92,6 @@ class FotoGalleryController extends Controller
     public function deleteGalleryImage($id)
     {
         $response = $this->model->deleteGalleryImage($id);
-        return redirect(route('admin.gallery.edit'))->with('message_type', $response['alert'])->with('message', $response['message']);
+        return back()->with('message_type', $response['alert'])->with('message', $response['message']);
     }
 }

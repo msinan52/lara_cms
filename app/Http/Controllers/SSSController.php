@@ -17,6 +17,6 @@ class SSSController extends Controller
     public function list()
     {
         $list = $this->_sssService->allWithPagination();
-        return view('site.referans.listReferences', compact('list'));
+        return view('site.sss.listSSS', compact('list'));
     }
 }

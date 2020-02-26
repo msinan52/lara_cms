@@ -69,7 +69,9 @@ class SiparisController extends Controller
             $prices = $this->calculateOrderSubTotalCargoCouponAndTotal($order->basket, $order);
             \Mail::to($order->basket->user->email)->send(new OrderStatusOnChangedMail($order->basket->user, $order, $order->basket->basket_items, $prices, Siparis::statusLabelStatic(\request('status'))));
         }
-        return redirect(route('admin.order.edit', $order->id));
+        if ($order)
+            return redirect(route('admin.order.edit', $order->id));
+        return back()->withInput();
     }
 
     private function calculateOrderSubTotalCargoCouponAndTotal($currentBasket, $order)

@@ -59,7 +59,9 @@ class KategoriController extends Controller
             $entry = $this->model->create($request_data);
         }
         Kategori::clearCache();
-        return redirect(route('admin.category.edit', $entry->id));
+        if ($entry)
+            return redirect(route('admin.category.edit', $entry->id));
+        return back()->withInput();
     }
 
     public function deleteCategory($category_id)

@@ -48,7 +48,7 @@
 
                             <div class="form-group col-md-1">
                                 <label for="exampleInputEmail1">Aktif Mi ?</label><br>
-                                <input type="checkbox" class="minimal" name="active" {{ $product->active == 1 ? 'checked': '' }}>
+                                <input type="checkbox" class="minimal" name="active" {{ old('active',$product->active) == 1 ? 'checked': '' }}>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="image">Fotoğraf</label><br>
@@ -81,7 +81,7 @@
                                     <input type="number" class="form-control" id="qty" name="qty" placeholder="Adet" required
                                            value="{{ old('qty', $product->qty) }}">
                                 </div>
-                                @else
+                            @else
                                 <input type="hidden" name="qty" value="1">
                             @endif
                             @if(config('admin.product_brands_module'))
@@ -152,7 +152,7 @@
                             <div class="box-body pad">
                          <textarea class="textarea" placeholder="Place some text here" id="editor1"
                                    style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
-                                   name="desc">{{ $product->desc }}</textarea>
+                                   name="desc">{{ old('desc',$product->desc )}}</textarea>
                             </div>
                         </div>
                     </div>

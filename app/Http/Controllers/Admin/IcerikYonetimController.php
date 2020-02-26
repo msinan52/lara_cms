@@ -36,7 +36,6 @@ class IcerikYonetimController extends Controller
             $item = $this->model->getById($id);
         }
         $languages = SiteOwnerModel::activeLanguages();
-//        dd($languages);
         return view('admin.content.newOrEditContent', compact('item', 'languages', 'contents'));
     }
 
@@ -64,7 +63,7 @@ class IcerikYonetimController extends Controller
         \Cache::forget('contents');
         if ($entry)
             return redirect(route('admin.content.edit', $entry->id));
-        return back();
+        return back()->withInput();
     }
 
     public function delete($id)

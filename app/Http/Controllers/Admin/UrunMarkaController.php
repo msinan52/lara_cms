@@ -45,14 +45,16 @@ class UrunMarkaController extends Controller
         } else {
             $entry = $this->model->create($request_data);
         }
-        if (request()->hasFile('image')) {
+        if (request()->hasFile('image') && $entry) {
             $this->validate(request(), [
                 'image' => 'image|mimes:jpg,png,jpeg,gif|'.config('admin.max_upload_size')
             ]);
             $this->model->uploadBrandMainImage($entry, request()->file('image'));
         }
         UrunMarka::clearCache();
-        return redirect(route('admin.product.brands.edit', $entry->id));
+        if ($entry)
+            return redirect(route('admin.product.brands.edit', $entry->id));
+        return back()->withInput();
     }
 
     public function delete($id)

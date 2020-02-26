@@ -42,14 +42,14 @@
 
                             <div class="form-group col-md-2">
                                 <label for="exampleInputEmail1">Aktif Mi ?</label><br>
-                                <input type="checkbox" class="minimal" name="active" {{ $item->active == 1 ? 'checked': '' }}>
+                                <input type="checkbox" class="minimal" name="active" {{ old('active',$item->active) == 1 ? 'checked': '' }}>
                             </div>
                             @if(env('MULTI_LANG'))
                                 <div class="form-group col-md-2">
                                     <label for="exampleInputEmail1">Dil</label>
                                     <select name="lang" id="languageSelect" class="form-control">
                                         @foreach($languages as $lang)
-                                            <option value="{{ $lang[0] }}" {{ $item->lang == $lang[0] ? 'selected' : '' }}> {{ $lang[1] }}</option>
+                                            <option value="{{ $lang[0] }}" {{ old('lang',$item->lang) == $lang[0] ? 'selected' : '' }}> {{ $lang[1] }}</option>
                                         @endforeach
                                     </select>
 
@@ -60,14 +60,14 @@
                                 <select name="parent" id="languageSelect" class="form-control">
                                     <option value="">Üst Başlık Seçiniz</option>
                                     @foreach($contents as $content)
-                                        <option value="{{ $content->id }}" {{ $content->id == $item->parent ? 'selected' : '' }}> {{ $content->title }}</option>
+                                        <option value="{{ $content->id }}" {{ old('parent',$content->id) == $item->parent ? 'selected' : '' }}> {{ $content->title }}</option>
                                     @endforeach
                                 </select>
                                 <span class="help-block">Hangi başlığın altında(alt kategori olarak) yayınlaması isteniyorsa üst olarak seçilmedilir</span>
                             </div>
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Kısa Açıklama</label>
-                                <input type="text" name="spot" class="form-control" maxlength="255" value="{{ $item->spot }}">
+                                <input type="text" name="spot" class="form-control" maxlength="255" value="{{ old('spot',$item->spot) }}">
                             </div>
 
                         </div>
@@ -93,7 +93,7 @@
                     <div class="box-body pad">
                                      <textarea class="textarea" placeholder="" id="editor1"
                                                style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"
-                                               name="desc">{{ $item->desc }}</textarea>
+                                               name="desc">{{ old('desc',$item->desc) }}</textarea>
                     </div>
                     <div class="box-footer text-right">
                         <button type="submit" class="btn btn-success">Kaydet</button>

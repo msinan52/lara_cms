@@ -17,7 +17,7 @@ $data = [
     'blog_module' => true,
     'order_module' => true,
     'reference_module' => true,
-    'gallery_module' => false,
+    'gallery_module' => true,
     'our_team_module' => true,
     'e_bulten_module' => true,
     // if product module equal to false all product relations modules can not used

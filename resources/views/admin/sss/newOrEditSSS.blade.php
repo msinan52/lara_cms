@@ -44,7 +44,7 @@
                                     <label for="exampleInputEmail1">Dil</label>
                                     <select name="lang" id="languageSelect" class="form-control">
                                         @foreach($languages as $lang)
-                                            <option value="{{ $lang[0] }}" {{ $item->lang == $lang[0] ? 'selected' : '' }}> {{ $lang[1] }}</option>
+                                            <option value="{{ $lang[0] }}" {{ old('lang',$item->lang) == $lang[0] ? 'selected' : '' }}> {{ $lang[1] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -52,7 +52,7 @@
 
                             <div class="form-group col-md-12">
                                 <label for="exampleInputEmail1">Açıklama</label>
-                                <textarea name="desc" class="form-control" id="desc" cols="30" rows="10">{{ $item->desc }}</textarea>
+                                <textarea name="desc" class="form-control" id="desc" cols="30" rows="10">{{ old('desc',$item->desc) }}</textarea>
                             </div>
                         </div>
 

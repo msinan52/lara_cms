@@ -29,7 +29,7 @@ class LogController extends Controller
                 ->orWhere('url', 'like', "%$filter%");
         })->when($type, function ($query) use ($type) {
             $query->where('type', $type);
-        })->simplePaginate();
+        })->orderByDesc('id')->simplePaginate();
         $logTypes = Log::listTypesWithId();
         return view('admin.log.list_logs', compact('list', 'logTypes'));
     }
