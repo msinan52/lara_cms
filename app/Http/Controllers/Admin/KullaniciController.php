@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Kullanici;
 use App\Models\Auth\Role;
 use App\Models\KullaniciDetay;
+use App\Models\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
@@ -25,6 +26,7 @@ class KullaniciController extends Controller
             if (Auth::guard('admin')->attempt($user_login_data, request()->has('remember_me', 0))) {
                 return redirect(route('admin.home_page'));
             }
+            Log::addLog('hatalı admin girişi', json_encode($user_login_data), Log::TYPE_WRONG_LOGIN);
             return back()->withInput()->withErrors(['email' => 'hatalı kullanıcı adı veya şifre']);
         }
         return view('admin.login');

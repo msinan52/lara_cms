@@ -67,7 +67,7 @@ class ElBaseRepository implements BaseRepositoryInterface
         } catch (\Exception $exception) {
             session()->flash('message_type', 'danger');
             session()->flash('message', $exception->getMessage());
-            Log::addLog('error', ($this->getModelTableName() . '' . ' eklerken bir sorun oluştu'), $exception->getMessage(), 1);
+            Log::addLog(($this->getModelTableName() . '' . ' eklerken bir sorun oluştu ' . $exception->getMessage()), $exception, Log::TYPE_CREATE_OBJECT);
         }
 
     }
@@ -83,7 +83,7 @@ class ElBaseRepository implements BaseRepositoryInterface
         } catch (\Exception $exception) {
             session()->flash('message_type', 'danger');
             session()->flash('message', array($exception->getMessage() . ''));
-            Log::addLog('error', ($this->getModelTableName() . '' . ' güncellerken bir sorun oluştu'), $exception->getMessage(), 1);
+            Log::addLog(($this->getModelTableName() . '' . ' güncellerken bir sorun oluştu ' . $exception->getMessage()), $exception, Log::TYPE_CREATE_OBJECT);
         }
     }
 
@@ -98,7 +98,7 @@ class ElBaseRepository implements BaseRepositoryInterface
         } catch (\Exception $exception) {
             session()->flash('message_type', 'danger');
             session()->flash('message', $exception->getMessage());
-            Log::addLog('error', ($this->getModelTableName() . '' . ' silerken bir sorun oluştu'), $exception->getMessage());
+            Log::addLog(($this->getModelTableName() . '' . ' silinirken bir sorun oluştu ' . $exception->getMessage()), $exception, Log::TYPE_CREATE_OBJECT);
         }
     }
 

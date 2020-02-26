@@ -24,6 +24,14 @@
                     <div class="box-tools">
                         <form action="{{ route('admin.logs') }}" method="get" id="form">
                             <div class="row">
+                                <div class="col-md-3 pull-right">
+                                    <select name="type" id="" class="form-control" onchange="document.getElementById('form').submit()">
+                                        <option value="">--Log Tipi --</option>
+                                        @foreach($logTypes as $type)
+                                            <option value="{{ $type[0] }}" {{ request()->get('type') == $type[0]  ? 'selected' : '' }}>{{ $type[1] }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                                 <div class="col-md-3 input-group input-group-sm hidden-xs  pull-right">
                                     <input type="text" name="q" class="form-control pull-right" placeholder="Log ara.." value="{{ request('q') }}">
 
@@ -47,7 +55,7 @@
                             <th>Mesaj</th>
                             <th>Exception</th>
                             <th>Code</th>
-                            <th>Level</th>
+                            <th>Type</th>
                             <th>Oluşturulma Tarihi</th>
                             <th>Sil</th>
                         </tr>
@@ -57,10 +65,10 @@
                                 <td><a href="{{ route('admin.user.edit',$l->user_id) }}"> {{ $l->user_id }}</a></td>
 
                                 <td>{{ $l ->url }} </td>
-                                <td>{{ str_limit($l->message,100) }}</td>
+                                <td>{{ str_limit($l->message,50) }}</td>
                                 <td>{{ str_limit($l->exception, $limit = 50, $end = '...') }}</td>
                                 <td>{{ $l ->code }}</td>
-                                <td>{{ $l ->level }}</td>
+                                <td>{{ \App\Models\Log::typeLabelStatic($l->type) }}</td>
                                 <td>{{ $l->created_at }}</td>
                                 <td><a href="{{ route('admin.log.delete',$l->id) }}" onclick="return confirm('Silmek istediğine emin misin ?')"><i class="fa fa-trash-o"></i></a>
                                 </td>
@@ -69,7 +77,7 @@
                         </tbody>
 
                     </table>
-                    <div class="text-right"> {{ $list->links() }}</div>
+                    <div class="text-right"> {{ $list->appends(request()->input())->links() }}</div>
                 </div>
 
                 <!-- /.box-body -->

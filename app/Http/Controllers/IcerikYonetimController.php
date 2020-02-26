@@ -19,6 +19,6 @@ class IcerikYonetimController extends Controller
         $item = $this->_icerikYonetimService->getByColumn('slug', $slug);
         if (is_null($item))
             return redirect(route('homeView'))->withErrors('içerik bulunamadı');
-        return view('site.referans.referenceDetail', compact('item'));
+        return view('site.icerik.contentDetail', compact('item'));
     }
 }

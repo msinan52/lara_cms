@@ -1,5 +1,5 @@
 @extends('site.layouts.base')
-@section('title',$item->title . ' | '. $site->title)
+@section('title',$item->title)
 
 @section('content')
 

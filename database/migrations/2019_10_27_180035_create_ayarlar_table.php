@@ -16,7 +16,7 @@ class CreateAyarlarTable extends Migration
         Schema::create('ayarlar', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title', 40);
-            $table->string('desc', 255);
+            $table->string('desc', 500);
             $table->string('domain', 40);
             $table->string('logo', 100)->nullable();
             $table->string('footer_logo', 100)->nullable();

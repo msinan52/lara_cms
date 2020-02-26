@@ -12,7 +12,7 @@ class SiteOwnerTableSeeder extends Seeder
      */
     public function run()
     {
-        SiteOwnerModel::truncate();
-        SiteOwnerModel::create(['full_name' => "Murat Karabacak", 'company_address' => 'Kadıköy/İstanbul', 'phone' => '05310129339', 'email' => 'info@modapixel.com']);
+//        SiteOwnerModel::truncate();
+//        SiteOwnerModel::create(['full_name' => "Murat Karabacak", 'company_address' => 'Kadıköy/İstanbul', 'phone' => '05310129339', 'email' => 'info@modapixel.com']);
     }
 }

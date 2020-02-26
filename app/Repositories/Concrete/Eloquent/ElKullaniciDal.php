@@ -76,7 +76,7 @@ class ElKullaniciDal implements KullaniciInterface
         } catch (\Exception $exception) {
             session()->flash('message_type', 'danger');
             session()->flash('message', $exception->getMessage());
-            Log::addLog('error', ($this->getModelTableName() . '' . 'eklerken bir sorun oluştu'), $exception->getMessage(), 1);
+            Log::addLog('role eklerken hata oluştu', $exception, Log::TYPE_CREATE_OBJECT);
         }
     }
 
@@ -92,7 +92,7 @@ class ElKullaniciDal implements KullaniciInterface
         } catch (\Exception $exception) {
             session()->flash('message_type', 'danger');
             session()->flash('message', $exception->getMessage());
-            Log::addLog('error', 'rol güncellerken bir sorun oluştu', $exception->getMessage(), 1);
+            Log::addLog('role güncellerken hata oluştu', $exception, Log::TYPE_CREATE_OBJECT);
         }
     }
 

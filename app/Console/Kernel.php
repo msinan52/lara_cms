@@ -34,7 +34,6 @@ class Kernel extends ConsoleKernel
                 $camp->save();
                 Kampanya::removeCampaignAllProductDiscounts($camp);
             }
-            Log::addLog('cronjob', 'mesaj yok cronjobvar', 'yok', 'cyok');
         })->everyMinute();
     }
 

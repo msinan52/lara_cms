@@ -61,6 +61,7 @@ class IcerikYonetimController extends Controller
             ]);
             $this->model->uploadMainImage($entry, request()->file('image'));
         }
+        \Cache::forget('contents');
         if ($entry)
             return redirect(route('admin.content.edit', $entry->id));
         return back();
@@ -69,6 +70,7 @@ class IcerikYonetimController extends Controller
     public function delete($id)
     {
         $this->model->delete($id);
+        \Cache::forget('contents');
         return redirect(route('admin.content'));
     }
 }

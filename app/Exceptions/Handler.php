@@ -62,7 +62,7 @@ class Handler extends ExceptionHandler
 
                 return (string)$item;
             });
-            Log::addLog($logged->level, $logged->message, $logged->context, $this->incidentCode, request()->fullUrl());
+            Log::addLog(Log::TYPE_GENERAL, $logged->message, $logged->context, $this->incidentCode, request()->fullUrl());
             return $logged;
         });
 //        Storage::disk('local')->put("incident\\{$this->incidentCode}.json", $listener->events->toJson(JSON_PRETTY_PRINT));

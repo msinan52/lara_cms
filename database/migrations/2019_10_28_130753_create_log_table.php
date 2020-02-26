@@ -16,7 +16,8 @@ class CreateLogTable extends Migration
         Schema::create('log', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->nullable();
-            $table->string('level', 15);
+//            $table->string('level', 15);
+            $table->unsignedSmallInteger('type')->nullable();
             $table->string('message', 250);
             $table->text('exception');
             $table->string('code', 30);

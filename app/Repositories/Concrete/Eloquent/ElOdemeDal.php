@@ -156,7 +156,7 @@ class ElOdemeDal implements OdemeInterface
             $paymentResult = json_decode($paymentResult, JSON_UNESCAPED_UNICODE);
             İyzicoFailsJson::addLog(auth()->user()->id, $order['full_name'], $order['sepet_id'], $paymentResult);
         } catch (\Exception $exception) {
-            Log::addLog('iyzicoFailure', $exception->getMessage(), $exception);
+            Log::addLog('iyzico işlemi sırasında hata oldu' . $exception->getMessage(), $exception, Log::TYPE_IYZICO);
         }
 
     }
@@ -171,7 +171,7 @@ class ElOdemeDal implements OdemeInterface
             $respo = \Iyzipay\Model\ThreedsPayment::create($request, $this->getIyzicoOptions());
             return json_decode($respo->getRawResult(), true);
         } catch (\Exception $exception) {
-            Log::addLog('iyzicoFailure', ("conversation Id :" . $conversationId . ' - Payment ID : ' . $paymentId), $exception);
+            Log::addLog('iyzico 3d tamamlama sırasında hata oldu' . $exception->getMessage(), $exception, Log::TYPE_IYZICO);
             return false;
         }
 

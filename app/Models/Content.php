@@ -16,4 +16,8 @@ class Content extends Model
     {
         return $this->belongsTo(Content::class, 'parent', 'id');
     }
+    public function subContents()
+    {
+        return $this->hasMany(Content::class, 'parent', 'id');
+    }
 }

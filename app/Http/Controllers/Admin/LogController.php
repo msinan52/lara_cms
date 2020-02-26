@@ -21,9 +21,17 @@ class LogController extends Controller
 
     public function list()
     {
-        $searchText = \request('q');
-        $list = $this->model->allWithPagination($searchText);
-        return view('admin.log.list_logs', compact('list'));
+        $filter = \request('q');
+        $type = \request()->get('type', null);
+        $list = Log::when($filter, function ($query) use ($filter) {
+            return $query->where('code', 'like', "%$filter%")->orWhere('user_id', 'like', "$filter")
+                ->orWhere('message', 'like', "%$filter%")
+                ->orWhere('url', 'like', "%$filter%");
+        })->when($type, function ($query) use ($type) {
+            $query->where('type', $type);
+        })->simplePaginate();
+        $logTypes = Log::listTypesWithId();
+        return view('admin.log.list_logs', compact('list', 'logTypes'));
     }
 
     public function show($id)
